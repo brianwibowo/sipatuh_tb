@@ -133,7 +133,7 @@ export default function PetugasInfoPage() {
                 Informasi Kepatuhan TB
               </h1>
               <p className={styles.intro} style={{ fontSize: "1.15rem", color: "#5F5E5A", lineHeight: 1.7 }}>
-                Berikut adalah materi edukasi medis resmi mengenai Tuberkulosis (TB), 
+                Berikut adalah materi edukasi medis resmi mengenai Tuberkulosis (TB),
                 gejala, rejimen pengobatan, dan pencegahannya.
               </p>
             </div>
@@ -180,7 +180,7 @@ export default function PetugasInfoPage() {
                             onClick={() => handleStartEdit(content)}
                             className={styles.editBtn}
                           >
-                            ✏️ Edit Seksi Ini
+                            ✏️ Edit Bagian Ini
                           </button>
                         </div>
                       )}
@@ -258,7 +258,7 @@ export default function PetugasInfoPage() {
                 <div className={`${styles.sidebarCard} ${styles.ctaCard}`}>
                   <h3 className={styles.ctaTitle}>Lanjut ke Penyebab TB</h3>
                   <p className={styles.ctaDesc}>
-                    Lihat daftar detail penyebab tuberkulosis, cara penularan, 
+                    Lihat daftar detail penyebab tuberkulosis, cara penularan,
                     serta faktor risiko infeksi pada pasien.
                   </p>
                   <Link href="/petugas/penyebab" className={styles.ctaLink}>

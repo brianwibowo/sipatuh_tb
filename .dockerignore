@@ -1,0 +1,15 @@
+node_modules
+.next
+.git
+.gitignore
+.dockerignore
+Dockerfile
+docker-compose.yml
+.env*
+*.md
+jsconfig.json
+next.config.mjs
+package-lock.json
+package.json
+LICENSE
+README.md

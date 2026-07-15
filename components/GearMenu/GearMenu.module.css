@@ -1,0 +1,303 @@
+.floatingBtn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-full);
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  transition: var(--transition-base);
+}
+
+.floatingBtn:hover {
+  background-color: var(--primary-light);
+  transform: scale(1.05) rotate(30deg);
+}
+
+.activeGear {
+  background-color: var(--secondary);
+}
+
+.gearIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Panel */
+.panel {
+  position: fixed;
+  top: 0;
+  right: -400px;
+  width: 380px;
+  height: 100vh;
+  background-color: var(--bg-surface);
+  box-shadow: var(--shadow-lg);
+  z-index: 998;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border-light);
+  transition: var(--transition-slow);
+}
+
+.panelOpen {
+  right: 0;
+}
+
+.panelHeader {
+  padding: var(--space-lg);
+  border-bottom: 1px solid var(--bg-muted);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panelHeader h3 {
+  font-size: 1.15rem;
+  color: var(--primary-dark);
+}
+
+.closePanelBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-light);
+  padding: 0.25rem;
+}
+
+.closePanelBtn:hover {
+  color: var(--text-main);
+}
+
+.panelBody {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.sectionTitle {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  font-weight: 600;
+  margin-bottom: var(--space-xs);
+}
+
+.actionBtn {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  text-align: center;
+}
+
+.btnEditing {
+  background-color: var(--danger);
+  color: #ffffff;
+  border: none;
+}
+
+.btnEditing:hover {
+  background-color: var(--danger-light);
+}
+
+.btnNotEditing {
+  background-color: var(--primary-glow);
+  color: var(--primary-dark);
+  border: 1px solid rgba(15, 110, 86, 0.2);
+}
+
+.btnNotEditing:hover {
+  background-color: var(--primary);
+  color: #ffffff;
+}
+
+/* Video Form */
+.videoForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.panelInput {
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background-color: var(--bg-muted-light);
+  outline: none;
+  font-size: 0.9rem;
+}
+
+.panelInput:focus {
+  border-color: var(--primary);
+  background-color: #ffffff;
+}
+
+.panelError {
+  color: var(--danger);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.addVideoBtn {
+  padding: 0.75rem;
+  background-color: var(--secondary);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  margin-top: var(--space-xs);
+}
+
+.addVideoBtn:hover {
+  background-color: var(--secondary-light);
+}
+
+.addVideoBtn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Video List in Panel */
+.noVideos {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.videoList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: var(--space-xs);
+}
+
+.videoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem;
+  background-color: var(--bg-muted-light);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  gap: var(--space-sm);
+}
+
+.videoInfo {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  flex: 1;
+}
+
+.videoItemTitle {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.videoItemUrl {
+  font-size: 0.75rem;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.videoActions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.toggleBtn {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.toggleOn {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.toggleOff {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+.deleteBtn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0.25rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+
+.deleteBtn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.panelFooter {
+  padding: var(--space-lg);
+  border-top: 1px solid var(--bg-muted);
+}
+
+.logoutBtn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.logoutBtn:hover {
+  background-color: var(--bg-muted);
+  color: var(--text-main);
+  border-color: var(--text-light);
+}
+
+@media (max-width: 480px) {
+  .panel {
+    width: 100%;
+    right: -100%;
+  }
+}

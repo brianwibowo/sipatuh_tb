@@ -1,49 +1,232 @@
+/* ==========================================================================
+   SIPATUH-TB DESIGN SYSTEM & GLOBAL STYLES
+   Style Guide: Warm Clinical / Medical Editorial
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* HSL Tailored Palettes */
+  --primary-h: 165;
+  --primary-s: 76%;
+  --primary-l: 25%; /* #0F6E56 */
+  
+  --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+  --primary-light: hsl(var(--primary-h), var(--primary-s), 35%);
+  --primary-dark: hsl(var(--primary-h), var(--primary-s), 18%);
+  --primary-glow: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
+
+  --secondary-h: 210;
+  --secondary-s: 74%;
+  --secondary-l: 37%; /* #185FA5 */
+  
+  --secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
+  --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 47%);
+  --secondary-glow: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.15);
+
+  --neutral-h: 48;
+  --neutral-s: 3%;
+  --neutral-l: 36%; /* #5F5E5A */
+  
+  --text-main: hsl(var(--neutral-h), var(--neutral-s), 20%);
+  --text-muted: hsl(var(--neutral-h), var(--neutral-s), 45%);
+  --text-light: hsl(var(--neutral-h), var(--neutral-s), 65%);
+
+  --danger-h: 0;
+  --danger-s: 57%;
+  --danger-l: 41%; /* #A32D2D */
+  
+  --danger: hsl(var(--danger-h), var(--danger-s), var(--danger-l));
+  --danger-light: hsl(var(--danger-h), var(--danger-s), 50%);
+  --danger-glow: hsla(var(--danger-h), var(--danger-s), var(--danger-l), 0.1);
+
+  /* Warm Medical Backgrounds (Anti-Sterile) */
+  --bg-base: #FCFAF6;        /* Soft cream warm background */
+  --bg-surface: #FFFFFF;     /* Pure white cards */
+  --bg-muted: #F3EFE9;       /* Slightly darker warm grey */
+  --bg-muted-light: #F9F7F3;
+  --bg-dark: #1E2321;
+  --border-light: rgba(15, 110, 86, 0.08);
+  --border-medium: rgba(95, 94, 90, 0.15);
+
+  /* Font Configurations */
+  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+  --space-2xl: 4rem;
+  --space-3xl: 6rem;
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 2px 8px rgba(95, 94, 90, 0.04);
+  --shadow-md: 0 8px 24px rgba(95, 94, 90, 0.06);
+  --shadow-lg: 0 16px 40px rgba(95, 94, 90, 0.09);
+  --shadow-primary: 0 12px 30px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.12);
+  --shadow-secondary: 0 12px 30px hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.12);
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Base Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html {
-  height: 100%;
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
 }
 
-html,
 body {
-  max-width: 100vw;
+  font-family: var(--font-sans);
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Typography Editorial */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--primary-dark);
+  letter-spacing: -0.02em;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+h1 {
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.4rem, 3vw, 1.8rem);
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+p:last-child {
+  margin-bottom: 0;
 }
 
 a {
-  color: inherit;
+  color: var(--secondary);
   text-decoration: none;
+  transition: var(--transition-fast);
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+a:hover {
+  color: var(--secondary-light);
+}
+
+ul, ol {
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+}
+
+/* Form inputs & styling */
+input, textarea, select, button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+/* Utility Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn var(--transition-slow) forwards;
+}
+
+.animate-scale-up {
+  animation: scaleUp var(--transition-slow) forwards;
+}
+
+/* Image loading placeholder */
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--bg-muted) 25%,
+    var(--bg-muted-light) 50%,
+    var(--bg-muted) 75%
+  );
+  background-size: 200% 100%;
+  animation: loadingShimmer 1.5s infinite;
+}
+
+@keyframes loadingShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-muted);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-light);
 }

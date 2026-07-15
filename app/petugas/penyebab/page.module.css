@@ -1,0 +1,330 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-base);
+}
+
+.headerSection {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-base) 100%);
+  padding: var(--space-2xl) 2rem var(--space-xl);
+  border-bottom: 1px solid var(--border-light);
+  position: relative;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.breadcrumbs {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  z-index: 10;
+}
+
+.backLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background-color: var(--bg-surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.85rem;
+  transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.backLink:hover {
+  background-color: var(--primary-glow);
+  border-color: var(--primary);
+  color: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.backIcon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
+.headerGroup {
+  max-width: 800px;
+}
+
+.sub {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--secondary);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+  display: block;
+}
+
+.mainTitle {
+  margin-bottom: var(--space-sm);
+  color: var(--primary-dark);
+}
+
+.intro {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.contentSection {
+  padding: var(--space-xl) 2rem var(--space-3xl);
+}
+
+/* Admin forms trigger */
+.adminActionContainer {
+  margin-bottom: var(--space-xl);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.addTriggerBtn {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition-base);
+}
+
+.addTriggerBtn:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1.5px);
+}
+
+/* Form card style */
+.formCard, .editFormCard {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--border-light);
+  margin-bottom: var(--space-xl);
+  width: 100%;
+}
+
+.formTitle {
+  font-size: 1.25rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-md);
+  font-weight: 700;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.input, .textarea {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  background-color: var(--bg-muted-light);
+  outline: none;
+  font-size: 0.95rem;
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--primary);
+  background-color: #ffffff;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  margin-top: var(--space-sm);
+}
+
+.submitBtn, .cancelBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.submitBtn {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+}
+
+.submitBtn:hover {
+  background-color: var(--primary-light);
+}
+
+.cancelBtn {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+}
+
+.cancelBtn:hover {
+  background-color: var(--bg-muted);
+}
+
+/* Grid and Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  gap: var(--space-xl);
+  width: 100%;
+}
+
+.card {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition-base);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: rgba(15, 110, 86, 0.15);
+}
+
+.cardImageContainer {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  background-color: var(--bg-muted-light);
+}
+
+.cardImage {
+  object-fit: cover;
+  transition: var(--transition-slow);
+}
+
+.card:hover .cardImage {
+  transform: scale(1.03);
+}
+
+.cardBody {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-sm);
+  line-height: 1.35;
+}
+
+.cardDesc {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: var(--space-lg);
+  flex: 1;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--bg-muted);
+  padding-top: var(--space-md);
+}
+
+.readMoreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--secondary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.readMoreLink:hover {
+  color: var(--secondary-light);
+}
+
+.arrowIcon {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  transition: var(--transition-fast);
+}
+
+.readMoreLink:hover .arrowIcon {
+  transform: translateX(4px);
+}
+
+/* Admin quick action buttons on card */
+.adminBtns {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.editBtn, .deleteBtn {
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: var(--transition-fast);
+}
+
+.editBtn:hover {
+  background-color: var(--primary-glow);
+  border-color: var(--primary);
+}
+
+.deleteBtn:hover {
+  background-color: var(--danger-glow);
+  border-color: var(--danger);
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

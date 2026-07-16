@@ -283,41 +283,6 @@
   padding-left: 1rem;
 }
 
-.navGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.subLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-  padding-left: 1.5rem;
-  margin-top: 2px;
-  margin-bottom: var(--space-xs);
-}
-
-.subLink {
-  font-size: 0.85rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  padding: 0.25rem 0.5rem;
-  border-radius: var(--radius-sm);
-  transition: var(--transition-fast);
-  text-decoration: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: block;
-}
-
-.subLink:hover {
-  background-color: var(--bg-muted-light);
-  color: var(--primary);
-  padding-left: 0.75rem;
-}
-
 .ctaCard {
   background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 100%);
   color: rgba(255, 255, 255, 0.85);

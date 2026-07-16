@@ -156,10 +156,49 @@ export default function PetugasArtikelDetailPage({ params }) {
                 <h1 className={styles.title}>{artikel.title}</h1>
               </header>
 
-              <div
-                className={styles.body}
-                dangerouslySetInnerHTML={{ __html: artikel.body }}
-              />
+              {(() => {
+                try {
+                  const parsed = JSON.parse(artikel.body);
+                  if (parsed && typeof parsed === "object" && parsed.blocks) {
+                    return (
+                      <div className={styles.body}>
+                        {parsed.author && (
+                          <div className={styles.authorMeta}>
+                            ✍️ Ditulis oleh: <strong>{parsed.author}</strong>
+                          </div>
+                        )}
+                        
+                        {parsed.blocks.map((block, idx) => {
+                          if (block.type === "text") {
+                            // Split by newline to preserve paragraph breaks
+                            return block.value.split("\n").map((para, pidx) => (
+                              para.trim() && <p key={`${idx}-${pidx}`} className={styles.paragraph}>{para}</p>
+                            ));
+                          } else if (block.type === "image") {
+                            return (
+                              <div key={idx} className={styles.articleImageBlock}>
+                                <img src={block.value} alt="Ilustrasi materi" className={styles.blockImg} />
+                              </div>
+                            );
+                          }
+                          return null;
+                        })}
+
+                        {parsed.external_link && (
+                          <div className={styles.externalLinkMeta}>
+                            🔗 Link Eksternal:{" "}
+                            <a href={parsed.external_link} target="_blank" rel="noopener noreferrer" className={styles.extLink}>
+                              {parsed.external_link}
+                            </a>
+                          </div>
+                        )}
+                      </div>
+                    );
+                  }
+                } catch (e) {}
+
+                return <div className={styles.body} dangerouslySetInnerHTML={{ __html: artikel.body }} />;
+              })()}
 
               {/* Related articles at the bottom */}
               {getRelatedArticles().length > 0 && (

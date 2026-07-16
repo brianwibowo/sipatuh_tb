@@ -399,3 +399,55 @@
   color: var(--primary-dark);
   line-height: 1.4;
 }
+
+.authorMeta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  display: inline-block;
+}
+
+.articleImageBlock {
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  justify-content: center;
+}
+
+.blockImg {
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+  display: block;
+}
+
+.externalLinkMeta {
+  margin-top: 3rem;
+  padding: 1.25rem;
+  background-color: var(--bg-muted-light);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(7, 94, 84, 0.1);
+  font-size: 0.95rem;
+  color: var(--primary-dark);
+}
+
+.extLink {
+  color: var(--secondary);
+  text-decoration: underline;
+  word-break: break-all;
+  font-weight: 600;
+}
+
+.extLink:hover {
+  color: var(--secondary-light);
+}
+
+.paragraph {
+  margin-bottom: 1.5rem;
+}

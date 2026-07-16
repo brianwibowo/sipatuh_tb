@@ -53,12 +53,15 @@ export async function POST(request) {
 
     const { title, subtitle, description } = await request.json();
 
-    if (!title || !subtitle || !description) {
+    if (!title) {
       return NextResponse.json(
-        { error: "Judul, sub-judul, dan deskripsi kategori harus diisi" },
+        { error: "Judul kategori harus diisi" },
         { status: 400 }
       );
     }
+
+    const finalSubtitle = subtitle || `Informasi tentang ${title}`;
+    const finalDescription = description || `Kumpulan artikel edukasi medis mengenai ${title}.`;
 
     const key = generateKey(title);
 
@@ -73,7 +76,7 @@ export async function POST(request) {
 
     const { data, error } = await supabaseServer
       .from("kategori_artikel")
-      .insert({ key, title, subtitle, description, display_order: nextOrder })
+      .insert({ key, title, subtitle: finalSubtitle, description: finalDescription, display_order: nextOrder })
       .select();
 
     if (error) throw error;

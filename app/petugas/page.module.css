@@ -174,7 +174,6 @@
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-light);
-  border-left: 5px solid var(--primary); /* Left border accent */
   position: relative;
   transition: var(--transition-base);
   display: flex;
@@ -185,7 +184,6 @@
 .articleCardSplit:hover {
   box-shadow: var(--shadow-md);
   border-color: rgba(13, 93, 73, 0.15);
-  border-left-color: var(--primary-light);
 }
 
 .articleImageSide {

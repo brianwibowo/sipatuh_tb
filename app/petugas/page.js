@@ -201,7 +201,6 @@ export default function PetugasInfoPage() {
   const renderCardContent = (content) => {
     try {
       const parsed = JSON.parse(content.body);
-      const sectionCards = getCardsForSection(content.section_key);
 
       return (
         <div className={styles.articleBody}>
@@ -220,61 +219,8 @@ export default function PetugasInfoPage() {
 
           {content.section_key === "penjelasan_umum" && parsed.quote && (
             <div className={styles.quoteWrapper}>
-              <span className={styles.quoteQuote}>“</span>
+              <span className={styles.quoteQuote}>"</span>
               <blockquote className={styles.premiumQuote}>{parsed.quote}</blockquote>
-            </div>
-          )}
-
-          {/* Grid of Cause/Article Cards */}
-          {sectionCards.length > 0 && (
-            <div className={styles.cardsGrid}>
-              {sectionCards.map((card) => {
-                const details = getCardDetails(card.slug);
-                return (
-                  <div key={card.id} className={styles.articleMiniCard}>
-                    <div className={styles.cardImageContainer}>
-                      <Image
-                        src={card.image_url || getLocalFallbackImage(card.slug)}
-                        alt={card.title}
-                        fill
-                        className={styles.cardImage}
-                        sizes="(max-width: 768px) 100vw, 50vw"
-                      />
-                    </div>
-
-                    <div className={styles.cardContentBody}>
-                      <div className={styles.cardHeaderRow}>
-                        <span className={styles.typeBadge}>{details.type}</span>
-                        <span className={`${styles.riskBadge} ${details.riskClass}`}>{details.risk}</span>
-                      </div>
-
-                      <h3 className={styles.cardTitle}>{card.title}</h3>
-                      <p className={styles.cardDesc}>{card.description}</p>
-
-                      <div className={styles.cardMeta}>
-                        <div className={styles.metaItem}>
-                          <span className={styles.metaLabel}>Fokus:</span>
-                          <span className={styles.metaValue}>{details.target}</span>
-                        </div>
-                        <div className={styles.metaItem}>
-                          <span className={styles.metaLabel}>Mekanisme:</span>
-                          <span className={styles.metaValue}>{details.transmission}</span>
-                        </div>
-                      </div>
-                      
-                      <div className={styles.cardFooter}>
-                        <Link href={`/petugas/penyebab/${card.slug}`} className={styles.readMoreLink}>
-                          <span>Lihat Detail Artikel</span>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                          </svg>
-                        </Link>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
             </div>
           )}
         </div>
@@ -355,18 +301,18 @@ export default function PetugasInfoPage() {
                 <div className={styles.sidebarCard}>
                   <h3 className={styles.sidebarTitle}>Navigasi Artikel</h3>
                   <div className={styles.sidebarNav}>
-                    <a href="#penjelasan_umum" className={styles.navLink}>
+                    <Link href="/petugas/kategori/penjelasan_umum" className={styles.navLink}>
                       <span className={styles.navIcon}>•</span> Apa itu TB?
-                    </a>
-                    <a href="#gejala" className={styles.navLink}>
+                    </Link>
+                    <Link href="/petugas/kategori/gejala" className={styles.navLink}>
                       <span className={styles.navIcon}>•</span> Gejala TB
-                    </a>
-                    <a href="#pengobatan" className={styles.navLink}>
+                    </Link>
+                    <Link href="/petugas/kategori/pengobatan" className={styles.navLink}>
                       <span className={styles.navIcon}>•</span> Skema Pengobatan
-                    </a>
-                    <a href="#pencegahan" className={styles.navLink}>
+                    </Link>
+                    <Link href="/petugas/kategori/pencegahan" className={styles.navLink}>
                       <span className={styles.navIcon}>•</span> Pencegahan Penularan
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

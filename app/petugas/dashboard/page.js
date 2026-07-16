@@ -1097,6 +1097,94 @@ export default function PetugasDashboardPage() {
                         />
                       </div>
                     </div>
+
+                    {/* Section: Isi Konten Berita (Dinamis) */}
+                    <div className={styles.editorPanel} style={{ marginTop: "1.5rem" }}>
+                      <div className={styles.blocksHeader}>
+                        <h4 className={styles.panelTitle} style={{ margin: 0 }}>Isi Konten Berita (Dinamis)</h4>
+                        <div style={{ display: "flex", gap: "0.5rem" }}>
+                          <button type="button" onClick={handleAddTextBlock} className={styles.addBlockBtn}>
+                            ➕ Teks
+                          </button>
+                          <button type="button" onClick={handleAddImageBlock} className={styles.addBlockBtn}>
+                            ➕ Gambar
+                          </button>
+                        </div>
+                      </div>
+
+                      <div className={styles.blocksList}>
+                        {editPenyebabBlocks.length === 0 ? (
+                          <p style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem" }}>
+                            Belum ada konten. Klik tombol "+ Teks" atau "+ Gambar" untuk menambahkan konten dinamis.
+                          </p>
+                        ) : (
+                          editPenyebabBlocks.map((block, index) => (
+                            <div key={block.id} className={styles.blockCard}>
+                              <div className={styles.blockCardHeader}>
+                                <span className={styles.blockTitle}>
+                                  {block.type === "text" ? "📄 BLOK TEKS" : "🖼️ BLOK GAMBAR"}
+                                </span>
+                                <div className={styles.blockCardActions}>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleMoveBlockUp(index)}
+                                    disabled={index === 0}
+                                    className={styles.actionIconBtn}
+                                    title="Pindahkan ke Atas"
+                                  >
+                                    ⬆️
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleMoveBlockDown(index)}
+                                    disabled={index === editPenyebabBlocks.length - 1}
+                                    className={styles.actionIconBtn}
+                                    title="Pindahkan ke Bawah"
+                                  >
+                                    ⬇️
+                                  </button>
+                                  <button
+                                    type="button"
+                                    onClick={() => handleDeleteBlock(block.id)}
+                                    className={styles.deleteBlockBtn}
+                                    title="Hapus Blok"
+                                  >
+                                    🗑️ Hapus
+                                  </button>
+                                </div>
+                              </div>
+
+                              <div className={styles.blockCardBody}>
+                                {block.type === "text" ? (
+                                  <textarea
+                                    value={block.value}
+                                    onChange={(e) => handleUpdateBlockValue(block.id, e.target.value)}
+                                    placeholder="Tulis paragraf berita di sini..."
+                                    className={styles.textarea}
+                                    rows={10}
+                                    required
+                                  />
+                                ) : (
+                                  <div>
+                                    <label className={styles.label} style={{ fontSize: "0.8rem", marginBottom: "5px" }}>Upload / Pilih Gambar Blok</label>
+                                    <ImageUploader
+                                      adminPassword={adminPassword}
+                                      onUploadSuccess={(url) => handleUpdateBlockValue(block.id, url)}
+                                      currentImageUrl={block.value}
+                                    />
+                                    {block.value && (
+                                      <div className={styles.blockImagePreview}>
+                                        <img src={block.value} alt="Preview" style={{ maxHeight: "150px", borderRadius: "8px", marginTop: "10px" }} />
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                          ))
+                        )}
+                      </div>
+                    </div>
                   </div>
 
                   {/* Right Column: Pengaturan Publikasi & Cover */}
@@ -1146,94 +1234,6 @@ export default function PetugasDashboardPage() {
                         currentImageUrl={editPenyebabImg}
                       />
                     </div>
-                  </div>
-                </div>
-
-                {/* Bottom Section: Isi Konten Berita (Dinamis) */}
-                <div className={styles.editorPanel} style={{ marginTop: "1.5rem" }}>
-                  <div className={styles.blocksHeader}>
-                    <h4 className={styles.panelTitle} style={{ margin: 0 }}>Isi Konten Berita (Dinamis)</h4>
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      <button type="button" onClick={handleAddTextBlock} className={styles.addBlockBtn}>
-                        ➕ Teks
-                      </button>
-                      <button type="button" onClick={handleAddImageBlock} className={styles.addBlockBtn}>
-                        ➕ Gambar
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className={styles.blocksList}>
-                    {editPenyebabBlocks.length === 0 ? (
-                      <p style={{ textAlign: "center", color: "var(--text-muted)", padding: "2rem" }}>
-                        Belum ada konten. Klik tombol "+ Teks" atau "+ Gambar" untuk menambahkan konten dinamis.
-                      </p>
-                    ) : (
-                      editPenyebabBlocks.map((block, index) => (
-                        <div key={block.id} className={styles.blockCard}>
-                          <div className={styles.blockCardHeader}>
-                            <span className={styles.blockTitle}>
-                              {block.type === "text" ? "📄 BLOK TEKS" : "🖼️ BLOK GAMBAR"}
-                            </span>
-                            <div className={styles.blockCardActions}>
-                              <button
-                                type="button"
-                                onClick={() => handleMoveBlockUp(index)}
-                                disabled={index === 0}
-                                className={styles.actionIconBtn}
-                                title="Pindahkan ke Atas"
-                              >
-                                ⬆️
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleMoveBlockDown(index)}
-                                disabled={index === editPenyebabBlocks.length - 1}
-                                className={styles.actionIconBtn}
-                                title="Pindahkan ke Bawah"
-                              >
-                                ⬇️
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => handleDeleteBlock(block.id)}
-                                className={styles.deleteBlockBtn}
-                                title="Hapus Blok"
-                              >
-                                🗑️ Hapus
-                              </button>
-                            </div>
-                          </div>
-
-                          <div className={styles.blockCardBody}>
-                            {block.type === "text" ? (
-                              <textarea
-                                value={block.value}
-                                onChange={(e) => handleUpdateBlockValue(block.id, e.target.value)}
-                                placeholder="Tulis paragraf berita di sini..."
-                                className={styles.textarea}
-                                rows={6}
-                                required
-                              />
-                            ) : (
-                              <div>
-                                <label className={styles.label} style={{ fontSize: "0.8rem", marginBottom: "5px" }}>Upload / Pilih Gambar Blok</label>
-                                <ImageUploader
-                                  adminPassword={adminPassword}
-                                  onUploadSuccess={(url) => handleUpdateBlockValue(block.id, url)}
-                                  currentImageUrl={block.value}
-                                />
-                                {block.value && (
-                                  <div className={styles.blockImagePreview}>
-                                    <img src={block.value} alt="Preview" style={{ maxHeight: "150px", borderRadius: "8px", marginTop: "10px" }} />
-                                  </div>
-                                )}
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))
-                    )}
                   </div>
                 </div>
 

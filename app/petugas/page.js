@@ -36,7 +36,7 @@ export default function PetugasInfoPage() {
         case "penjelasan_umum":
           return (
             <div className={styles.articleBody}>
-              {parsed.description && <p>{parsed.description}</p>}
+              {parsed.description && <p className={styles.leadText}>{parsed.description}</p>}
               
               {parsed.stats && (
                 <div className={styles.statGrid}>
@@ -50,95 +50,185 @@ export default function PetugasInfoPage() {
               )}
 
               {parsed.quote && (
-                <blockquote>{parsed.quote}</blockquote>
+                <div className={styles.quoteWrapper}>
+                  <span className={styles.quoteQuote}>“</span>
+                  <blockquote className={styles.premiumQuote}>{parsed.quote}</blockquote>
+                </div>
               )}
 
               {parsed.patogenesis && (
-                <p>{parsed.patogenesis}</p>
+                <div className={styles.patogenesisBox}>
+                  <h4 className={styles.boxTitle}>Patogenesis & Penularan</h4>
+                  <p>{parsed.patogenesis}</p>
+                </div>
               )}
             </div>
           );
         case "gejala":
           return (
             <div className={styles.articleBody}>
-              {parsed.description && <p>{parsed.description}</p>}
+              {parsed.description && <p className={styles.leadText}>{parsed.description}</p>}
 
               {parsed.table && (
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Kategori Gejala</th>
-                      <th>Manifestasi Spesifik</th>
-                      <th>Kondisi Patofisiologis</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {parsed.table.map((row, rIdx) => (
-                      <tr key={rIdx}>
-                        <td><strong>{row.category}</strong></td>
-                        <td>{row.manifestation}</td>
-                        <td>{row.pathophysiology}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                <div className={styles.symptomCardGrid}>
+                  {parsed.table.map((row, rIdx) => {
+                    // Set severity classes/badges based on category
+                    let severityClass = styles.badgePrimary;
+                    let cardBorderClass = "";
+                    if (row.category.toLowerCase().includes("utama")) {
+                      severityClass = styles.badgeDanger;
+                      cardBorderClass = styles.cardBorderDanger;
+                    } else if (row.category.toLowerCase().includes("respiratorik")) {
+                      severityClass = styles.badgePrimary;
+                      cardBorderClass = styles.cardBorderPrimary;
+                    } else {
+                      severityClass = styles.badgeSecondary;
+                      cardBorderClass = styles.cardBorderSecondary;
+                    }
+
+                    return (
+                      <div key={rIdx} className={`${styles.symptomCard} ${cardBorderClass}`}>
+                        <div className={styles.symptomHeader}>
+                          <span className={`${styles.badge} ${severityClass}`}>{row.category}</span>
+                        </div>
+                        <h4 className={styles.symptomTitle}>{row.manifestation}</h4>
+                        <div className={styles.pathophysiologyBox}>
+                          <span className={styles.physioLabel}>Fisiologis:</span>
+                          <span className={styles.physioText}>{row.pathophysiology}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
 
-              {parsed.conclusion && <p>{parsed.conclusion}</p>}
+              {parsed.conclusion && (
+                <div className={styles.conclusionAlert}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.alertIcon}>
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="8" x2="12" y2="12"></line>
+                    <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                  </svg>
+                  <p>{parsed.conclusion}</p>
+                </div>
+              )}
             </div>
           );
         case "pengobatan":
           return (
             <div className={styles.articleBody}>
-              {parsed.description && <p>{parsed.description}</p>}
+              {parsed.description && <p className={styles.leadText}>{parsed.description}</p>}
 
               {parsed.phases && (
-                <table>
-                  <thead>
-                    <tr>
-                      <th>Fase Terapi</th>
-                      <th>Durasi</th>
-                      <th>Komposisi Obat Anti Tuberkulosis (OAT)</th>
-                      <th>Tujuan Klinis Utama</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {parsed.phases.map((phase, pIdx) => (
-                      <tr key={pIdx}>
-                        <td>
-                          <span className={pIdx === 0 ? styles.badgePrimary : styles.badgeSecondary}>
-                            {phase.name}
+                <div className={styles.timeline}>
+                  {parsed.phases.map((phase, pIdx) => (
+                    <div key={pIdx} className={styles.timelineItem}>
+                      <div className={styles.timelineMarker}>
+                        <div className={pIdx === 0 ? styles.markerDotPrimary : styles.markerDotSecondary}>
+                          {pIdx + 1}
+                        </div>
+                        {pIdx < parsed.phases.length - 1 && <div className={styles.markerLine}></div>}
+                      </div>
+                      <div className={styles.timelineContent}>
+                        <div className={styles.timelineHeader}>
+                          <h4 className={styles.timelineTitle}>{phase.name}</h4>
+                          <span className={pIdx === 0 ? styles.timelineBadgePrimary : styles.timelineBadgeSecondary}>
+                            ⏱️ {phase.duration}
                           </span>
-                        </td>
-                        <td>{phase.duration}</td>
-                        <td>{phase.drugs}</td>
-                        <td>{phase.objective}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
+                        </div>
+                        <div className={styles.timelineDetails}>
+                          <div className={styles.detailRow}>
+                            <span className={styles.detailLabel}>Paduan OAT:</span>
+                            <code className={styles.detailCode}>{phase.drugs}</code>
+                          </div>
+                          <div className={styles.detailRow}>
+                            <span className={styles.detailLabel}>Tujuan Klinis:</span>
+                            <span className={styles.detailDesc}>{phase.objective}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               )}
 
               {parsed.warning && (
-                <blockquote>
-                  <strong>Peringatan Mutlak:</strong> {parsed.warning}
-                </blockquote>
+                <div className={styles.warningAlert}>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.warningIcon}>
+                    <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path>
+                    <line x1="12" y1="9" x2="12" y2="13"></line>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                  </svg>
+                  <div>
+                    <strong>Peringatan Kepatuhan:</strong> {parsed.warning}
+                  </div>
+                </div>
               )}
             </div>
           );
         case "pencegahan":
           return (
             <div className={styles.articleBody}>
-              {parsed.description && <p>{parsed.description}</p>}
+              {parsed.description && <p className={styles.leadText}>{parsed.description}</p>}
 
               {parsed.pillars && (
-                <ul>
-                  {parsed.pillars.map((pillar, plIdx) => (
-                    <li key={plIdx} style={{ marginBottom: "1rem" }}>
-                      <strong>{pillar.title}:</strong> {pillar.desc}
-                    </li>
-                  ))}
-                </ul>
+                <div className={styles.preventionGrid}>
+                  {parsed.pillars.map((pillar, plIdx) => {
+                    // Custom outline SVG icons for each prevention action
+                    let iconSvg = (
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                      </svg>
+                    );
+
+                    if (pillar.title.toLowerCase().includes("obat") || pillar.title.toLowerCase().includes("teratur")) {
+                      iconSvg = (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"></path>
+                          <path d="m8.5 8.5 7 7"></path>
+                        </svg>
+                      );
+                    } else if (pillar.title.toLowerCase().includes("etika") || pillar.title.toLowerCase().includes("batuk")) {
+                      iconSvg = (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="8" r="5"></circle>
+                          <path d="M3 21c0-4.5 3.5-8 8-8s8 3.5 8 8"></path>
+                          <path d="m14 17 2 2 4-4"></path>
+                        </svg>
+                      );
+                    } else if (pillar.title.toLowerCase().includes("masker")) {
+                      iconSvg = (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="6" width="18" height="12" rx="2"></rect>
+                          <path d="M3 10c4 0 4 4 8 4s4-4 8-4"></path>
+                          <path d="M3 14c4 0 4-4 8-4s4 4 8 4"></path>
+                        </svg>
+                      );
+                    } else if (pillar.title.toLowerCase().includes("ventilasi") || pillar.title.toLowerCase().includes("cahaya") || pillar.title.toLowerCase().includes("udara")) {
+                      iconSvg = (
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                          <line x1="9" y1="3" x2="9" y2="21"></line>
+                          <line x1="15" y1="3" x2="15" y2="21"></line>
+                          <line x1="3" y1="9" x2="21" y2="9"></line>
+                          <line x1="3" y1="15" x2="21" y2="15"></line>
+                        </svg>
+                      );
+                    }
+
+                    return (
+                      <div key={plIdx} className={styles.preventionCard}>
+                        <div className={styles.preventionIconBox}>
+                          {iconSvg}
+                        </div>
+                        <h4 className={styles.preventionTitle}>{pillar.title}</h4>
+                        <p className={styles.preventionDesc}>{pillar.desc}</p>
+                      </div>
+                    );
+                  })}
+                </div>
               )}
             </div>
           );

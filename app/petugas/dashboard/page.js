@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 
 export default function PetugasDashboardPage() {
   const { isAdmin, adminPassword, login, logout, getAdminHeaders, loading: adminLoading } = useAdmin();
-  const [activeTab, setActiveTab] = useState("kategori"); // "kategori" | "penyebab" | "video"
+  const [activeTab, setActiveTab] = useState("penyebab"); // "kategori" | "penyebab" | "video"
   const [passwordInput, setPasswordInput] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
@@ -538,12 +538,14 @@ export default function PetugasDashboardPage() {
             📄 Pengantar Materi (L1)
           </button>
           */}
+          {/* 
           <button 
             onClick={() => { setActiveTab("kategori"); setEditingKategoriId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "kategori" ? styles.sidebarBtnActive : ""}`}
           >
             📂 Kategori Navigasi
           </button>
+          */}
           <button 
             onClick={() => { setActiveTab("penyebab"); setEditingPenyebabId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "penyebab" ? styles.sidebarBtnActive : ""}`}

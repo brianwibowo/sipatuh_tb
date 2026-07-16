@@ -184,13 +184,16 @@
 @media (max-width: 768px) {
   .headerSection {
     padding: var(--space-xl) 1rem var(--space-lg);
+  }
+
+  .headerSection .container {
     display: flex;
     flex-direction: column;
     gap: var(--space-md);
   }
 
   .breadcrumbs {
-    position: static;
+    position: static !important;
     order: -1;
     align-self: flex-start;
   }

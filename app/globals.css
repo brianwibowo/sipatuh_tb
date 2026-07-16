@@ -231,3 +231,32 @@ input, textarea, select, button {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-light);
 }
+
+/* Responsive Tables for HTML/Article Content */
+.articleBody table,
+.article-content table {
+  display: block;
+  width: 100% !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  border: 1px solid var(--border-medium);
+}
+
+.articleBody table th,
+.articleBody table td,
+.article-content table th,
+.article-content table td {
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--border-medium);
+  min-width: 120px;
+}
+
+.articleBody table th,
+.article-content table th {
+  background-color: var(--bg-muted-light);
+  font-weight: 700;
+  color: var(--primary-dark);
+}
+

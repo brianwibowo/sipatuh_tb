@@ -14,8 +14,11 @@ export default function VideoCard({ video, onPlay }) {
   };
 
   const ytId = getYouTubeId(video.embed_url);
+  const isGoogleDrive = video.embed_url.includes("drive.google.com");
   const thumbnailUrl = ytId
     ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`
+    : isGoogleDrive
+    ? "/images/tb-education-hero.png"
     : null;
 
   return (

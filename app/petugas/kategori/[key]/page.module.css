@@ -350,6 +350,18 @@
     padding: var(--space-xl) 1rem var(--space-lg);
   }
 
+  .headerSection .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+
+  .breadcrumbs {
+    position: static !important;
+    order: -1;
+    align-self: flex-start;
+  }
+
   .contentSection {
     padding: var(--space-lg) 1rem var(--space-2xl);
   }

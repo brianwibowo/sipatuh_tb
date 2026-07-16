@@ -21,7 +21,7 @@ export default function Navbar() {
     return pathname.startsWith(path);
   };
 
-  if (pathname === "/" || pathname === "/petugas/dashboard") {
+  if (pathname === "/petugas/dashboard") {
     return null;
   }
 
@@ -78,6 +78,18 @@ export default function Navbar() {
             onClick={() => setIsOpen(false)}
           >
             Menu Pasien
+          </Link>
+          <div className={styles.navDivider}></div>
+          <Link
+            href="/petugas/dashboard"
+            className={styles.ctaBtn}
+            onClick={() => setIsOpen(false)}
+          >
+            <span>Dashboard Petugas</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" style={{ marginLeft: "4px" }}>
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
           </Link>
         </nav>
       </div>

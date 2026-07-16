@@ -140,16 +140,17 @@
 }
 
 .layout {
-  display: grid;
-  grid-template-columns: 1.6fr 0.9fr;
+  display: flex;
+  flex-direction: column;
   gap: var(--space-3xl);
-  align-items: start;
+  width: 100%;
 }
 
 .articles {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
+  width: 100%;
 }
 
 .articleCard {
@@ -1033,5 +1034,53 @@
   text-transform: uppercase;
   color: var(--text-muted);
   margin-top: 0.25rem;
+.bottomNavSection {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-2xl);
+  border-top: 1px solid var(--border-medium);
+  width: 100%;
 }
 
+.bottomNavTitle {
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-xl);
+  font-family: var(--font-serif);
+  position: relative;
+}
+
+.bottomNavTitle::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: var(--primary);
+  border-radius: var(--radius-full);
+}
+
+.bottomNavGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
+
+.bottomNavCard {
+  border-radius: var(--radius-md);
+  padding: var(--space-xl) var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.bottomNavCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}

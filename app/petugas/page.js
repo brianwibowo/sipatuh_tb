@@ -350,30 +350,13 @@ export default function PetugasInfoPage() {
                 })
               )}
             </div>
-
-            {/* Right Column: Menu Quick Navigation */}
-            <aside className={styles.sidebar}>
-              <div className={styles.sidebarSticky}>
-                <div className={styles.sidebarCard}>
-                  <h3 className={styles.sidebarTitle}>Navigasi Info</h3>
-                  <div className={styles.sidebarNav}>
-                    <a href="#penjelasan_umum" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Apa itu TB?
-                    </a>
-                    <a href="#gejala" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Gejala TB
-                    </a>
-                    <a href="#pengobatan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Skema Pengobatan OAT
-                    </a>
-                    <a href="#pencegahan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Pencegahan Penularan
-                    </a>
-                  </div>
-                </div>
-
+            
+            {/* Bottom Navigation Section: 3 CTA Cards */}
+            <section className={styles.bottomNavSection}>
+              <h2 className={styles.bottomNavTitle}>Layanan & Navigasi Portal</h2>
+              <div className={styles.bottomNavGrid}>
                 {/* Card 1: Penyebab TB */}
-                <div className={`${styles.sidebarCard} ${styles.ctaCard}`}>
+                <div className={`${styles.bottomNavCard} ${styles.ctaCard}`}>
                   <h3 className={styles.ctaTitle}>Penyebab & Penularan</h3>
                   <p className={styles.ctaDesc}>
                     Pelajari faktor pemicu utama, droplet udara, dan kerentanan imun.
@@ -388,7 +371,7 @@ export default function PetugasInfoPage() {
                 </div>
 
                 {/* Card 2: Video Edukasi Pasien */}
-                <div className={`${styles.sidebarCard} ${styles.videoCtaCard}`}>
+                <div className={`${styles.bottomNavCard} ${styles.videoCtaCard}`}>
                   <h3 className={styles.ctaTitle}>Video Edukasi Pasien</h3>
                   <p className={styles.ctaDesc}>
                     Tonton materi video interaktif kepatuhan minum obat bagi pasien.
@@ -403,7 +386,7 @@ export default function PetugasInfoPage() {
                 </div>
 
                 {/* Card 3: Portal Petugas */}
-                <div className={`${styles.sidebarCard} ${styles.dashboardCtaCard}`}>
+                <div className={`${styles.bottomNavCard} ${styles.dashboardCtaCard}`}>
                   <h3 className={styles.ctaTitle}>Portal Editor Petugas</h3>
                   <p className={styles.ctaDesc}>
                     Akses petugas kesehatan untuk menyunting materi & mengelola video.
@@ -417,7 +400,7 @@ export default function PetugasInfoPage() {
                   </Link>
                 </div>
               </div>
-            </aside>
+            </section>
           </div>
         </div>
       </div>

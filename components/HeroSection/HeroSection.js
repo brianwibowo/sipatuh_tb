@@ -69,12 +69,12 @@ export default function HeroSection() {
         <div className={styles.heroContent}>
           {/* Top Left Rating Badge */}
           <div className={styles.ratingBadge}>
-            <span className={styles.starIcon}>★</span>
+            <span className={styles.starIcon}>🛡️</span>
             <span className={styles.ratingText}>
-              <strong>4.5</strong> Average Rating
+              <strong>Edukasi Kepatuhan TB</strong>
             </span>
             <span className={styles.divider}>•</span>
-            <span className={styles.reviewsText}><strong>560</strong> Reviews</span>
+            <span className={styles.reviewsText}>Panduan Resmi</span>
           </div>
 
           {/* Bottom Left Headline & Buttons */}
@@ -106,7 +106,7 @@ export default function HeroSection() {
 
           {/* Bottom Right Support Card */}
           <div className={styles.supportCard}>
-            <div className={styles.supportHeader}>24/7 Support</div>
+            <div className={styles.supportHeader}>Dampingi PMO</div>
             <div className={styles.supportBody}>
               <div className={styles.avatarGroup}>
                 <div className={styles.avatar}>
@@ -120,7 +120,7 @@ export default function HeroSection() {
                 </div>
               </div>
               <div className={styles.supportText}>
-                <strong>50+</strong> Expert Consultant
+                <strong>Petugas Siaga</strong> Bantu Disiplin OAT
               </div>
             </div>
           </div>

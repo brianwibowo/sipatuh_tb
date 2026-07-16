@@ -8,6 +8,7 @@ import styles from "./page.module.css";
 
 export default function PetugasInfoPage() {
   const [contents, setContents] = useState([]);
+  const [articles, setArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchContents = async () => {
@@ -15,7 +16,14 @@ export default function PetugasInfoPage() {
       const res = await fetch("/api/content");
       const data = await res.json();
       if (res.ok && data.contents) {
-        setContents(data.contents);
+        // Change the title of the pengobatan section to match Skema Pengobatan
+        const modified = data.contents.map(c => {
+          if (c.section_key === "pengobatan") {
+            return { ...c, title: "Skema Pengobatan" };
+          }
+          return c;
+        });
+        setContents(modified);
       }
     } catch (err) {
       console.error("Gagal memuat data konten", err);
@@ -24,9 +32,43 @@ export default function PetugasInfoPage() {
     }
   };
 
+  const fetchArticles = async () => {
+    try {
+      const res = await fetch("/api/artikel");
+      const data = await res.json();
+      if (res.ok && data.artikels) {
+        setArticles(data.artikels);
+      }
+    } catch (err) {
+      console.error("Gagal memuat artikel terkait", err);
+    }
+  };
+
   useEffect(() => {
     fetchContents();
+    fetchArticles();
   }, []);
+
+  const getRelatedArticles = (sectionKey) => {
+    switch (sectionKey) {
+      case "penjelasan_umum":
+        return articles.filter(art => 
+          art.slug.includes("bakteri") || art.slug.includes("imun")
+        );
+      case "gejala":
+        return [];
+      case "pengobatan":
+        return articles.filter(art => 
+          art.slug.includes("pmo") || art.slug.includes("obat")
+        );
+      case "pencegahan":
+        return articles.filter(art => 
+          art.slug.includes("pencegahan") || art.slug.includes("udara") || art.slug.includes("penularan")
+        );
+      default:
+        return [];
+    }
+  };
 
   const renderCardContent = (content) => {
     try {
@@ -297,6 +339,29 @@ export default function PetugasInfoPage() {
                         <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
                       </h2>
                       {renderCardContent(content)}
+                      
+                      {/* Related articles links list */}
+                      {getRelatedArticles(content.section_key).length > 0 && (
+                        <div className={styles.relatedArticlesBox}>
+                          <h4 className={styles.relatedTitle}>Artikel Mendalam Terkait:</h4>
+                          <div className={styles.relatedList}>
+                            {getRelatedArticles(content.section_key).map(art => (
+                              <Link 
+                                key={art.id} 
+                                href={`/petugas/penyebab/${art.slug}`} 
+                                className={styles.relatedLink}
+                              >
+                                <span className={styles.relatedIcon}>📄</span>
+                                <span className={styles.relatedText}>{art.title}</span>
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.relatedArrow}>
+                                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                                  <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                              </Link>
+                            ))}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </article>
                 ))
@@ -316,7 +381,7 @@ export default function PetugasInfoPage() {
                       <span className={styles.navIcon}>•</span> Gejala TB
                     </a>
                     <a href="#pengobatan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Skema Pengobatan OAT
+                      <span className={styles.navIcon}>•</span> Skema Pengobatan
                     </a>
                     <a href="#pencegahan" className={styles.navLink}>
                       <span className={styles.navIcon}>•</span> Pencegahan Penularan

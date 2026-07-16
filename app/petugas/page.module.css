@@ -984,3 +984,68 @@
   margin-top: 0.25rem;
 }
 
+/* Related Articles Box in Laman 1 */
+.relatedArticlesBox {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px dashed var(--border-medium);
+}
+
+.relatedTitle {
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-sm);
+}
+
+.relatedList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.relatedLink {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: var(--bg-base);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 0.75rem 1rem;
+  transition: var(--transition-fast);
+  text-decoration: none;
+}
+
+.relatedLink:hover {
+  background-color: var(--bg-muted-light);
+  border-color: rgba(7, 94, 84, 0.15);
+  transform: translateX(4px);
+}
+
+.relatedIcon {
+  font-size: 1.1rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.relatedText {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  flex-grow: 1;
+}
+
+.relatedArrow {
+  color: var(--primary);
+  opacity: 0.6;
+  transition: var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.relatedLink:hover .relatedArrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+

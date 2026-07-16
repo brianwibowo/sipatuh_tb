@@ -9,7 +9,7 @@
 
 .loginCard {
   background-color: var(--bg-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   border: 1px solid var(--border-light);
   padding: var(--space-2xl);
@@ -236,7 +236,7 @@
 
 .tabContent {
   background-color: var(--bg-surface);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-light);
   padding: var(--space-xl);

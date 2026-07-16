@@ -263,25 +263,13 @@ export default function PetugasInfoPage() {
             </Link>
           </div>
 
-          <div className={styles.heroGrid}>
-            <div className={styles.headerGroup}>
-              <span className={styles.sub}>Informasi Umum</span>
-              <h1 className={styles.mainTitle}>Informasi Kepatuhan TB</h1>
-              <p className={styles.intro}>
-                Berikut adalah materi edukasi medis resmi mengenai Tuberkulosis (TB),
-                gejala, rejimen pengobatan, dan pencegahannya.
-              </p>
-            </div>
-            <div className={styles.heroImageWrapper}>
-              <Image
-                src="/images/lungs-illustration.png"
-                alt="Lungs Illustration"
-                width={280}
-                height={280}
-                className={styles.heroImage}
-                priority
-              />
-            </div>
+          <div className={styles.headerGroup}>
+            <span className={styles.sub}>Informasi Umum</span>
+            <h1 className={styles.mainTitle}>Informasi Kepatuhan TB</h1>
+            <p className={styles.intro}>
+              Berikut adalah materi edukasi medis resmi mengenai Tuberkulosis (TB),
+              gejala, rejimen pengobatan, dan pencegahannya.
+            </p>
           </div>
         </div>
       </section>
@@ -298,109 +286,45 @@ export default function PetugasInfoPage() {
                   <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
                 </div>
               ) : (
-                contents.map((content, idx) => {
-                  const isSplitCard = idx >= 1 && idx <= 3;
-                  const images = [
-                    "", // Card 1
-                    "/images/tb-education-hero.png", // Card 2
-                    "/images/medical-shaking-hands.png", // Card 3
-                    "/images/footer-care.png" // Card 4
-                  ];
-
-                  if (isSplitCard) {
-                    return (
-                      <article 
-                        key={content.id} 
-                        className={styles.articleCardSplit} 
-                        id={content.section_key}
-                      >
-                        <div className={styles.articleImageSide}>
-                          <Image
-                            src={images[idx]}
-                            alt={content.title}
-                            fill
-                            sizes="(max-width: 968px) 100vw, 320px"
-                            className={styles.splitImage}
-                          />
-                        </div>
-                        <div className={styles.articleContentSide}>
-                          <h2 className={styles.articleTitle}>
-                            <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
-                          </h2>
-                          {renderCardContent(content)}
-                        </div>
-                      </article>
-                    );
-                  }
-
-                  return (
-                    <article 
-                      key={content.id} 
-                      className={styles.articleCard} 
-                      id={content.section_key}
-                    >
-                      <div className={styles.cardContent}>
-                        <h2 className={styles.articleTitle}>
-                          <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
-                        </h2>
-                        {renderCardContent(content)}
-                      </div>
-                    </article>
-                  );
-                })
+                contents.map((content, idx) => (
+                  <article 
+                    key={content.id} 
+                    className={styles.articleCard} 
+                    id={content.section_key}
+                  >
+                    <div className={styles.cardContent}>
+                      <h2 className={styles.articleTitle}>
+                        <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
+                      </h2>
+                      {renderCardContent(content)}
+                    </div>
+                  </article>
+                ))
               )}
             </div>
-            
-            {/* Bottom Navigation Section: 3 CTA Cards */}
-            <section className={styles.bottomNavSection}>
-              <h2 className={styles.bottomNavTitle}>Layanan & Navigasi Portal</h2>
-              <div className={styles.bottomNavGrid}>
-                {/* Card 1: Penyebab TB */}
-                <div className={`${styles.bottomNavCard} ${styles.ctaCard}`}>
-                  <h3 className={styles.ctaTitle}>Penyebab & Penularan</h3>
-                  <p className={styles.ctaDesc}>
-                    Pelajari faktor pemicu utama, droplet udara, dan kerentanan imun.
-                  </p>
-                  <Link href="/petugas/penyebab" className={styles.ctaLink}>
-                    <span>Buka Penyebab & Penularan</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </Link>
-                </div>
 
-                {/* Card 2: Video Edukasi Pasien */}
-                <div className={`${styles.bottomNavCard} ${styles.videoCtaCard}`}>
-                  <h3 className={styles.ctaTitle}>Video Edukasi Pasien</h3>
-                  <p className={styles.ctaDesc}>
-                    Tonton materi video interaktif kepatuhan minum obat bagi pasien.
-                  </p>
-                  <Link href="/pasien" className={styles.ctaLink}>
-                    <span>Tonton Video Pasien</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </Link>
-                </div>
-
-                {/* Card 3: Portal Petugas */}
-                <div className={`${styles.bottomNavCard} ${styles.dashboardCtaCard}`}>
-                  <h3 className={styles.ctaTitle}>Portal Editor Petugas</h3>
-                  <p className={styles.ctaDesc}>
-                    Akses petugas kesehatan untuk menyunting materi & mengelola video.
-                  </p>
-                  <Link href="/petugas/dashboard" target="_blank" className={styles.ctaLink}>
-                    <span>Buka Portal Petugas</span>
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </Link>
+            {/* Right Column: Menu Quick Navigation */}
+            <aside className={styles.sidebar}>
+              <div className={styles.sidebarSticky}>
+                <div className={styles.sidebarCard}>
+                  <h3 className={styles.sidebarTitle}>Navigasi Info</h3>
+                  <div className={styles.sidebarNav}>
+                    <a href="#penjelasan_umum" className={styles.navLink}>
+                      <span className={styles.navIcon}>•</span> Apa itu TB?
+                    </a>
+                    <a href="#gejala" className={styles.navLink}>
+                      <span className={styles.navIcon}>•</span> Gejala TB
+                    </a>
+                    <a href="#pengobatan" className={styles.navLink}>
+                      <span className={styles.navIcon}>•</span> Skema Pengobatan OAT
+                    </a>
+                    <a href="#pencegahan" className={styles.navLink}>
+                      <span className={styles.navIcon}>•</span> Pencegahan Penularan
+                    </a>
+                  </div>
                 </div>
               </div>
-            </section>
+            </aside>
           </div>
         </div>
       </div>

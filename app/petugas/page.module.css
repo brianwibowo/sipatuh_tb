@@ -140,17 +140,16 @@
 }
 
 .layout {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1.6fr 0.9fr;
   gap: var(--space-3xl);
-  width: 100%;
+  align-items: start;
 }
 
 .articles {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
-  width: 100%;
 }
 
 .articleCard {
@@ -168,47 +167,6 @@
   box-shadow: var(--shadow-md);
   border-color: rgba(13, 93, 73, 0.15);
   border-left-color: var(--primary-light);
-}
-
-.articleCardSplit {
-  background-color: var(--bg-surface);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border-light);
-  position: relative;
-  transition: var(--transition-base);
-  display: flex;
-  flex-direction: row;
-  overflow: hidden;
-}
-
-.articleCardSplit:hover {
-  box-shadow: var(--shadow-md);
-  border-color: rgba(13, 93, 73, 0.15);
-}
-
-.articleImageSide {
-  width: 280px;
-  min-width: 280px;
-  position: relative;
-  overflow: hidden;
-  background-color: var(--bg-muted);
-}
-
-.splitImage {
-  object-fit: cover;
-  transition: var(--transition-slow);
-}
-
-.articleCardSplit:hover .splitImage {
-  transform: scale(1.04);
-}
-
-.articleContentSide {
-  flex-grow: 1;
-  padding: var(--space-xl);
-  display: flex;
-  flex-direction: column;
 }
 
 .editableCard {
@@ -625,16 +583,6 @@
   .sidebar {
     display: none;
   }
-
-  .articleCardSplit {
-    flex-direction: column;
-  }
-
-  .articleImageSide {
-    width: 100%;
-    min-width: 100%;
-    height: 240px;
-  }
 }
 
 /* Custom premium visual elements within articleBody */
@@ -1034,53 +982,5 @@
   text-transform: uppercase;
   color: var(--text-muted);
   margin-top: 0.25rem;
-.bottomNavSection {
-  margin-top: var(--space-xl);
-  padding-top: var(--space-2xl);
-  border-top: 1px solid var(--border-medium);
-  width: 100%;
 }
 
-.bottomNavTitle {
-  font-size: 1.65rem;
-  font-weight: 800;
-  color: var(--primary-dark);
-  margin-bottom: var(--space-xl);
-  font-family: var(--font-serif);
-  position: relative;
-}
-
-.bottomNavTitle::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 0;
-  width: 60px;
-  height: 3px;
-  background-color: var(--primary);
-  border-radius: var(--radius-full);
-}
-
-.bottomNavGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-lg);
-  margin: var(--space-lg) 0;
-}
-
-.bottomNavCard {
-  border-radius: var(--radius-md);
-  padding: var(--space-xl) var(--space-lg);
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-base);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-sm);
-  position: relative;
-  overflow: hidden;
-}
-
-.bottomNavCard:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--shadow-md);
-}

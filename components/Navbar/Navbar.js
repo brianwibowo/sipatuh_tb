@@ -39,9 +39,10 @@ export default function Navbar() {
             {/* Central Leaf */}
             <path d="M12 9C10.5 12 11 16 12 18.5C13 16 13.5 12 12 9Z" fill="#34A853" stroke="#137333" strokeWidth="1" strokeLinejoin="round" />
           </svg>
-          <span className={styles.logoText}>
-            SIPATUH<span className={styles.logoHighlight}>-TB</span>
-          </span>
+          <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1, marginLeft: "4px" }}>
+            <span style={{ fontSize: "1.1rem", fontWeight: "800", color: "var(--primary)", textTransform: "uppercase", letterSpacing: "0.02em" }}>SIPATUH</span>
+            <span style={{ fontSize: "0.75rem", fontWeight: "700", color: "var(--secondary)", textTransform: "uppercase", letterSpacing: "0.02em" }}>-TB Edukasi</span>
+          </div>
         </Link>
 
         {/* Mobile Hamburger */}

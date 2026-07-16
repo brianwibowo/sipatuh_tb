@@ -96,15 +96,11 @@ export default function PetugasArtikelDetailPage({ params }) {
 
   const getLocalFallbackImage = (slugStr) => {
     if (!slugStr) return "/images/lungs-illustration.png";
-    if (slugStr.includes("bakteri")) {
-      return "/images/bacteria-illustration.png";
-    }
-    if (slugStr.includes("droplet") || slugStr.includes("penularan")) {
-      return "/images/droplet-illustration.png";
-    }
-    if (slugStr.includes("imun") || slugStr.includes("kekebalan")) {
-      return "/images/lungs-illustration.png";
-    }
+    if (slugStr.includes("pencegahan")) return "/images/caring-nurse-comforting-patient.png";
+    if (slugStr.includes("pmo") || slugStr.includes("dukungan")) return "/images/medical-shaking-hands.png";
+    if (slugStr.includes("gejala")) return "/images/lungs-illustration.png";
+    if (slugStr.includes("bakteri")) return "/images/bacteria-illustration.png";
+    if (slugStr.includes("droplet") || slugStr.includes("penularan")) return "/images/droplet-illustration.png";
     return "/images/lungs-illustration.png";
   };
 
@@ -170,10 +166,14 @@ export default function PetugasArtikelDetailPage({ params }) {
                         
                         {parsed.blocks.map((block, idx) => {
                           if (block.type === "text") {
-                            // Split by newline to preserve paragraph breaks
-                            return block.value.split("\n").map((para, pidx) => (
-                              para.trim() && <p key={`${idx}-${pidx}`} className={styles.paragraph}>{para}</p>
-                            ));
+                            return (
+                              <div
+                                key={idx}
+                                className={styles.paragraph}
+                                dangerouslySetInnerHTML={{ __html: block.value }}
+                                style={{ whiteSpace: "pre-wrap" }}
+                              />
+                            );
                           } else if (block.type === "image") {
                             return (
                               <div key={idx} className={styles.articleImageBlock}>

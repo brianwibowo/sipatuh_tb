@@ -1,5 +1,5 @@
 .wrapper {
-  min-height: 100vh;
+  flex: 1;
   padding: var(--space-xl) 2rem var(--space-3xl);
   background-color: var(--bg-base);
 }
@@ -450,4 +450,32 @@
 
 .paragraph {
   margin-bottom: 1.5rem;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    padding: var(--space-md) 1rem var(--space-2xl);
+  }
+
+  .article {
+    padding: 1.25rem;
+  }
+
+  .heroImageContainer {
+    height: 200px;
+    margin-bottom: var(--space-md);
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .relatedBox {
+    margin-top: var(--space-xl);
+    padding-top: var(--space-lg);
+  }
+
+  .relatedTitle {
+    font-size: 1.3rem;
+  }
 }

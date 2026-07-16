@@ -51,9 +51,10 @@ export default function KategoriPage({ params }) {
   }, [key]);
 
   const getLocalFallbackImage = (slug) => {
-    if (slug.includes("pencegahan")) return "/images/caring_nurse_comforting_patient_1784200678670.png";
-    if (slug.includes("pmo") || slug.includes("dukungan")) return "/images/medical_shaking_hands_1784200384280.png";
-    if (slug.includes("gejala")) return "/images/lungs_illustration_1784100215238.png";
+    if (!slug) return "/images/lungs-illustration.png";
+    if (slug.includes("pencegahan")) return "/images/caring-nurse-comforting-patient.png";
+    if (slug.includes("pmo") || slug.includes("dukungan")) return "/images/medical-shaking-hands.png";
+    if (slug.includes("gejala")) return "/images/lungs-illustration.png";
     if (slug.includes("bakteri")) return "/images/bacteria-illustration.png";
     if (slug.includes("droplet") || slug.includes("penularan")) return "/images/droplet-illustration.png";
     return "/images/lungs-illustration.png";

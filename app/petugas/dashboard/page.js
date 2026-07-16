@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import ImageUploader from "@/components/ImageUploader/ImageUploader";
+import RichTextEditor from "@/components/RichTextEditor/RichTextEditor";
+import ReactPaginate from "react-paginate";
 import { useAdmin } from "@/hooks/useAdmin";
 import styles from "./page.module.css";
 
@@ -34,6 +36,14 @@ export default function PetugasDashboardPage() {
   const [editPenyebabBody, setEditPenyebabBody] = useState("");
   const [penyebabSaveLoading, setPenyebabSaveLoading] = useState(false);
   const [penyebabSaveError, setPenyebabSaveError] = useState("");
+
+  // Filtering states
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filterKategoriId, setFilterKategoriId] = useState("");
+
+  // Pagination states
+  const [currentPage, setCurrentPage] = useState(0);
+  const itemsPerPage = 5;
 
   const [editPenyebabAuthor, setEditPenyebabAuthor] = useState("");
   const [editPenyebabIsPublished, setEditPenyebabIsPublished] = useState(true);
@@ -129,6 +139,23 @@ export default function PetugasDashboardPage() {
       fetchVideos();
     }
   }, [isAdmin]);
+
+  const filteredPenyebabList = penyebabList.filter((card) => {
+    const matchesSearch = searchQuery.trim() === "" ||
+      card.title?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      card.description?.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = filterKategoriId === "" || card.kategori_id === filterKategoriId;
+    return matchesSearch && matchesCategory;
+  });
+
+  // Reset page when filters change
+  useEffect(() => {
+    setCurrentPage(0);
+  }, [searchQuery, filterKategoriId]);
+
+  const pageCount = Math.ceil(filteredPenyebabList.length / itemsPerPage);
+  const offset = currentPage * itemsPerPage;
+  const currentItems = filteredPenyebabList.slice(offset, offset + itemsPerPage);
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
@@ -558,12 +585,12 @@ export default function PetugasDashboardPage() {
     }
   };
 
-  const handleToggleVideo = async (id, currentStatus) => {
+  const handleSetVideoStatus = async (id, targetStatus) => {
     try {
       const res = await fetch("/api/video", {
         method: "PUT",
         headers: getAdminHeaders(),
-        body: JSON.stringify({ id, is_active: !currentStatus }),
+        body: JSON.stringify({ id, is_active: targetStatus }),
       });
 
       if (res.ok) {
@@ -997,17 +1024,47 @@ export default function PetugasDashboardPage() {
         {/* TAB 2: PENYEBAB & PENULARAN (LAMAN 2) */}
         {activeTab === "penyebab" && (
           <div className={styles.tabContent}>
-            <div className={styles.tabHeader} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+            <div className={styles.tabHeader} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "1rem" }}>
               <div>
                 <h2>Kelola Artikel</h2>
-                <p>Tambah, edit, atau hapus kartu sub-artikel blog TB beserta isi materi detailnya.</p>
+                <p>Tambah, edit, atau hapus artikel edukasi Tuberkulosis beserta isi materi detailnya.</p>
               </div>
               {!editingPenyebabId && (
                 <button onClick={handleStartAddPenyebab} className={styles.addBtn}>
-                  ➕ Tambah Artikel Baru
+                  <span style={{ color: "#ffffff", fontSize: "1.2rem", fontWeight: "bold", marginRight: "6px", display: "inline-block", transform: "translateY(-1px)" }}>+</span> Tambah Artikel Baru
                 </button>
               )}
             </div>
+
+            {!editingPenyebabId && (
+              <div className={styles.filterBar} style={{ display: "flex", gap: "1rem", flexWrap: "wrap", margin: "0.5rem 0 1rem 0", backgroundColor: "var(--bg-muted-light)", padding: "1rem", borderRadius: "12px", border: "1px solid var(--border-medium)" }}>
+                <div style={{ flex: 1, minWidth: "240px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <label className={styles.label} style={{ fontSize: "0.8rem", fontWeight: "700" }}>Cari Artikel</label>
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Cari berdasarkan judul..."
+                    className={styles.input}
+                    style={{ backgroundColor: "#ffffff" }}
+                  />
+                </div>
+                <div style={{ flex: 1, minWidth: "200px", display: "flex", flexDirection: "column", gap: "6px" }}>
+                  <label className={styles.label} style={{ fontSize: "0.8rem", fontWeight: "700" }}>Filter Kategori</label>
+                  <select
+                    value={filterKategoriId}
+                    onChange={(e) => setFilterKategoriId(e.target.value)}
+                    className={styles.input}
+                    style={{ backgroundColor: "#ffffff", padding: "0.7rem 1rem" }}
+                  >
+                    <option value="">Semua Kategori</option>
+                    {kategoriList.map(cat => (
+                      <option key={cat.id} value={cat.id}>{cat.title}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+            )}
 
             {penyebabLoading ? (
               <div className={styles.loading}>Memuat data penyebab...</div>
@@ -1026,7 +1083,7 @@ export default function PetugasDashboardPage() {
                   <div className={styles.editorLeftCol}>
                     <div className={styles.editorPanel}>
                       <h4 className={styles.panelTitle}>Informasi Utama</h4>
-                      
+
                       <div className={styles.inputGroup}>
                         <label className={styles.label}>Judul Berita <span style={{ color: "red" }}>*</span></label>
                         <input
@@ -1156,13 +1213,10 @@ export default function PetugasDashboardPage() {
 
                               <div className={styles.blockCardBody}>
                                 {block.type === "text" ? (
-                                  <textarea
+                                  <RichTextEditor
                                     value={block.value}
-                                    onChange={(e) => handleUpdateBlockValue(block.id, e.target.value)}
-                                    placeholder="Tulis paragraf berita di sini..."
-                                    className={styles.textarea}
-                                    rows={10}
-                                    required
+                                    onChange={(htmlVal) => handleUpdateBlockValue(block.id, htmlVal)}
+                                    placeholder="Tulis isi berita di sini... Gunakan toolbar di atas untuk memformat teks secara visual."
                                   />
                                 ) : (
                                   <div>
@@ -1192,7 +1246,7 @@ export default function PetugasDashboardPage() {
                     {/* Panel 1: Pengaturan Publikasi */}
                     <div className={styles.editorPanel}>
                       <h4 className={styles.panelTitle}>Pengaturan Publikasi</h4>
-                      
+
                       <div className={styles.publicationToggle}>
                         <div style={{ flex: 1 }}>
                           <span className={styles.toggleLabel}>Publikasikan Segera</span>
@@ -1259,43 +1313,71 @@ export default function PetugasDashboardPage() {
               </form>
             ) : (
               <div className={styles.causesList}>
-                {penyebabList.map((card) => (
-                  <div key={card.id} className={styles.causeRow}>
-                    <div style={{ display: "flex", gap: "1rem", alignItems: "center", overflow: "hidden" }}>
-                      <div className={styles.causeRowThumbnail}>
-                        <Image
-                          src={card.image_url || "/images/lungs-illustration.png"}
-                          alt={card.title}
-                          fill
-                          sizes="60px"
-                          style={{ objectFit: "cover" }}
+                {currentItems.length === 0 ? (
+                  <p className={styles.emptyText}>Tidak ada artikel yang cocok dengan pencarian atau filter kategori Anda.</p>
+                ) : (
+                  <>
+                    {currentItems.map((card) => (
+                      <div key={card.id} className={styles.causeRow}>
+                        <div style={{ display: "flex", gap: "1rem", alignItems: "center", overflow: "hidden" }}>
+                          <div className={styles.causeRowThumbnail}>
+                            <Image
+                              src={card.image_url || "/images/lungs-illustration.png"}
+                              alt={card.title}
+                              fill
+                              sizes="60px"
+                              style={{ objectFit: "cover" }}
+                            />
+                          </div>
+                          <div className={styles.rowInfo}>
+                            <h4>{card.title}</h4>
+                            <p className={styles.rowDesc}>{card.description}</p>
+                            <span className={styles.rowCategoryBadge}>
+                              📁 Kategori: {kategoriList.find(c => c.id === card.kategori_id)?.title || "Tidak Terkategori"}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div style={{ display: "flex", gap: "0.5rem" }}>
+                          <button
+                            onClick={() => handleStartEditPenyebab(card)}
+                            className={styles.rowEditBtn}
+                          >
+                            ✏️ Edit
+                          </button>
+                          <button
+                            onClick={() => handleDeletePenyebab(card.id)}
+                            className={styles.rowDeleteBtn}
+                          >
+                            🗑️ Hapus
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+
+                    {pageCount > 1 && (
+                      <div style={{ marginTop: "1rem" }}>
+                        <ReactPaginate
+                          previousLabel={"←"}
+                          nextLabel={"→"}
+                          breakLabel={"..."}
+                          pageCount={pageCount}
+                          marginPagesDisplayed={2}
+                          pageRangeDisplayed={3}
+                          onPageChange={({ selected }) => setCurrentPage(selected)}
+                          containerClassName={styles.pagination}
+                          activeClassName={styles.activePage}
+                          pageClassName={styles.pageItem}
+                          previousClassName={styles.pageItem}
+                          nextClassName={styles.pageItem}
+                          breakClassName={styles.pageItem}
+                          disabledClassName={styles.disabledPage}
+                          forcePage={currentPage}
                         />
                       </div>
-                      <div className={styles.rowInfo}>
-                        <h4>{card.title}</h4>
-                        <p className={styles.rowDesc}>{card.description}</p>
-                        <span className={styles.rowCategoryBadge}>
-                          📁 Kategori: {kategoriList.find(c => c.id === card.kategori_id)?.title || "Tidak Terkategori"}
-                        </span>
-                      </div>
-                    </div>
-
-                    <div style={{ display: "flex", gap: "0.5rem" }}>
-                      <button
-                        onClick={() => handleStartEditPenyebab(card)}
-                        className={styles.rowEditBtn}
-                      >
-                        ✏️ Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeletePenyebab(card.id)}
-                        className={styles.rowDeleteBtn}
-                      >
-                        🗑️ Hapus
-                      </button>
-                    </div>
-                  </div>
-                ))}
+                    )}
+                  </>
+                )}
               </div>
             )}
           </div>
@@ -1489,16 +1571,36 @@ export default function PetugasDashboardPage() {
                     <div key={vid.id} className={styles.videoRow}>
                       <div className={styles.rowInfo}>
                         <h4>{vid.title}</h4>
-                        <span className={styles.videoUrl} title={vid.embed_url}>{vid.embed_url}</span>
+                        <a
+                          href={vid.embed_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className={styles.videoLink}
+                          title="Klik untuk membuka link video"
+                        >
+                          {vid.embed_url} 🔗
+                        </a>
                       </div>
 
                       <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-                        <button
-                          onClick={() => handleToggleVideo(vid.id, vid.is_active)}
-                          className={`${styles.toggleBtn} ${vid.is_active ? styles.toggleOn : styles.toggleOff}`}
-                        >
-                          {vid.is_active ? "🟢 AKTIF (Tampil)" : "🔴 NONAKTIF (Sembunyi)"}
-                        </button>
+                        <div className={styles.statusWrapper}>
+                          <select
+                            value={vid.is_active ? "active" : "inactive"}
+                            onChange={(e) => handleSetVideoStatus(vid.id, e.target.value === "active")}
+                            className={`${styles.statusSelect} ${vid.is_active ? styles.selectActive : styles.selectInactive}`}
+                          >
+                            <option value="active">🟢 AKTIF (Tampil)</option>
+                            <option value="inactive">🔴 NONAKTIF (Sembunyi)</option>
+                          </select>
+                          <span
+                            className={styles.infoIcon}
+                            onClick={() => alert("Info Status Video:\n\n🟢 AKTIF (Tampil): Video akan muncul dan dapat dimainkan oleh pasien di portal edukasi.\n🔴 NONAKTIF (Sembunyi): Video akan disembunyikan sementara dari halaman portal pasien.")}
+                            title="Status video menentukan apakah video ini akan muncul (Aktif) atau disembunyikan (Nonaktif) pada aplikasi portal pasien."
+                            style={{ cursor: "pointer" }}
+                          >
+                            !
+                          </span>
+                        </div>
                         <button
                           onClick={() => handleDeleteVideo(vid.id)}
                           className={styles.rowDeleteBtn}

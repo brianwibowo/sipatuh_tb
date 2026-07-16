@@ -79,7 +79,7 @@ export default function HeroSection() {
           {/* Bottom Left Headline & Buttons */}
           <div className={styles.bottomLeftGroup}>
             <h1 className={styles.headline}>Bersama Sembuh<br />dari Tuberkulosis</h1>
-            
+
             <div className={styles.actions}>
               <Link href="/petugas" className={styles.bookBtn}>
                 <span>Menu Petugas</span>
@@ -105,7 +105,7 @@ export default function HeroSection() {
 
           {/* Bottom Right Support Card */}
           <div className={styles.supportCard}>
-            <div className={styles.supportHeader}>Dampingi PMO</div>
+            <div className={styles.supportHeader}>Artikel Lengkap</div>
             <div className={styles.supportBody}>
               <div className={styles.avatarGroup}>
                 <div className={styles.avatar}>
@@ -119,7 +119,7 @@ export default function HeroSection() {
                 </div>
               </div>
               <div className={styles.supportText}>
-                <strong>Petugas Siaga</strong> Bantu Disiplin OAT
+                <strong>Artikel Terupdate</strong> Bantu Belajar Kamu
               </div>
             </div>
           </div>

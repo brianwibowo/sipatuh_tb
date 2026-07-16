@@ -1,5 +1,5 @@
 .wrapper {
-  min-height: 100vh;
+  flex: 1;
   display: flex;
   flex-direction: column;
   background-color: var(--bg-base);
@@ -293,10 +293,57 @@
 @media (max-width: 768px) {
   .layout {
     grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
   }
   
   .sidebar {
-    order: -1; /* Sidebar links on top in mobile */
+    order: -1;
+  }
+
+  .sidebarSticky {
+    position: static;
+  }
+
+  .sidebarCard {
+    background: var(--bg-surface);
+    padding: var(--space-md);
+  }
+
+  .sidebarTitle {
+    font-size: 0.95rem;
+    margin-bottom: var(--space-xs);
+    padding-bottom: 0;
+    border-bottom: none;
+    text-align: center;
+  }
+
+  .sidebarNav {
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 0.5rem;
+    gap: var(--space-xs);
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .sidebarNav::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .sidebarNav::-webkit-scrollbar-thumb {
+    background-color: var(--primary-glow);
+    border-radius: var(--radius-full);
+  }
+
+  .navLink {
+    flex-shrink: 0;
+    font-size: 0.85rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--bg-muted-light);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
   }
 
   .headerSection {

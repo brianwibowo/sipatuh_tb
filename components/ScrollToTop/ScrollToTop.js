@@ -31,8 +31,8 @@ export default function ScrollToTop() {
     });
   };
 
-  // Hide on homepage (beranda)
-  if (pathname === "/") {
+  // Hide on dashboard
+  if (pathname === "/petugas/dashboard") {
     return null;
   }
 

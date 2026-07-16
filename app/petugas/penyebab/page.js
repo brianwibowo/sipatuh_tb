@@ -11,6 +11,12 @@ export default function PetugasPenyebabPage() {
   const [loading, setLoading] = useState(true);
 
   const getLocalFallbackImage = (slug) => {
+    if (slug.includes("pencegahan")) {
+      return "/images/caring_nurse_comforting_patient_1784200678670.png";
+    }
+    if (slug.includes("pmo") || slug.includes("dukungan")) {
+      return "/images/medical_shaking_hands_1784200384280.png";
+    }
     if (slug.includes("bakteri")) {
       return "/images/bacteria-illustration.png";
     }
@@ -24,6 +30,24 @@ export default function PetugasPenyebabPage() {
   };
 
   const getCardDetails = (slug) => {
+    if (slug.includes("pencegahan")) {
+      return {
+        type: "Pencegahan",
+        risk: "Imunisasi & APD",
+        riskClass: styles.badgePrimary,
+        target: "Komunitas & Keluarga",
+        transmission: "Vaksinasi & Kontrol Udara"
+      };
+    }
+    if (slug.includes("pmo") || slug.includes("dukungan")) {
+      return {
+        type: "Dukungan",
+        risk: "Kepatuhan OAT",
+        riskClass: styles.badgePrimary,
+        target: "Kedisiplinan Terapi SO/MDR",
+        transmission: "Keluarga & Petugas Siaga"
+      };
+    }
     if (slug.includes("bakteri")) {
       return {
         type: "Biologis",

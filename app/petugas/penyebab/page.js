@@ -17,6 +17,9 @@ export default function PetugasPenyebabPage() {
     if (slug.includes("pmo") || slug.includes("dukungan")) {
       return "/images/medical_shaking_hands_1784200384280.png";
     }
+    if (slug.includes("gejala")) {
+      return "/images/lungs_illustration_1784100215238.png";
+    }
     if (slug.includes("bakteri")) {
       return "/images/bacteria-illustration.png";
     }
@@ -46,6 +49,15 @@ export default function PetugasPenyebabPage() {
         riskClass: styles.badgePrimary,
         target: "Kedisiplinan Terapi SO/MDR",
         transmission: "Keluarga & Petugas Siaga"
+      };
+    }
+    if (slug.includes("gejala")) {
+      return {
+        type: "Diagnosis",
+        risk: "Deteksi Dini",
+        riskClass: styles.badgePrimary,
+        target: "Fasilitas Kesehatan & Komunitas",
+        transmission: "TCM GeneXpert & BTA"
       };
     }
     if (slug.includes("bakteri")) {

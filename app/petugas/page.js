@@ -56,7 +56,9 @@ export default function PetugasInfoPage() {
           art.slug.includes("bakteri") || art.slug.includes("imun")
         );
       case "gejala":
-        return [];
+        return articles.filter(art => 
+          art.slug.includes("gejala")
+        );
       case "pengobatan":
         return articles.filter(art => 
           art.slug.includes("pmo") || art.slug.includes("obat")

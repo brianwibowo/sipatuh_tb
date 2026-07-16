@@ -12,31 +12,31 @@ export default function HeroSection() {
         {/* Left Pill Navigation */}
         <div className={styles.navPill}>
           <Link href="/" className={`${styles.navLink} ${styles.navLinkActive}`}>
-            <span className={styles.activeDot}></span> Home
+            <span className={styles.activeDot}></span> Beranda
           </Link>
-          <Link href="/pasien" className={styles.navLink}>About Us</Link>
-          <Link href="/petugas" className={styles.navLink}>Our Services</Link>
-          <Link href="/petugas/penyebab" className={styles.navLink}>Programs</Link>
-          <Link href="/pasien" className={styles.navLink}>Blog</Link>
+          <Link href="/petugas" className={styles.navLink}>Materi TB</Link>
+          <Link href="/petugas/penyebab" className={styles.navLink}>Penyebab</Link>
+          <Link href="/pasien" className={styles.navLink}>Video Pasien</Link>
         </div>
 
         {/* Center Logo */}
         <Link href="/" className={styles.logo}>
-          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.logoIcon}>
-            {/* Medical Cross */}
-            <path d="M19 10.5H13.5V5C13.5 4.17 12.83 3.5 12 3.5C11.17 3.5 10.5 4.17 10.5 5V10.5H5C4.17 10.5 3.5 11.17 3.5 12C3.5 12.83 4.17 13.5 5 13.5H10.5V19C10.5 19.83 11.17 20.5 12 20.5C12.83 20.5 13.5 19.83 13.5 19V13.5H19C19.83 13.5 20.5 12.83 20.5 12C20.5 11.17 19.83 10.5 19 10.5Z" fill="#0D5D49" />
-            {/* Leaf shape accent */}
-            <path d="M12 12C12 9.5 10 7.5 7.5 7.5C7.5 10 9.5 12 12 12Z" fill="#E07A5F" />
-          </svg>
+          <Image
+            src="/images/logo.png"
+            alt="SIPATUH-TB Logo"
+            width={34}
+            height={34}
+            className={styles.logoIcon}
+          />
           <div className={styles.logoText}>
-            <span className={styles.logoTitle}>BrightLife</span>
-            <span className={styles.logoSubtitle}>Medical</span>
+            <span className={styles.logoTitle}>SIPATUH</span>
+            <span className={styles.logoSubtitle}>-TB Edukasi</span>
           </div>
         </Link>
 
         {/* Right Contact button */}
-        <Link href="/pasien" className={styles.contactBtn}>
-          <span>Contact Us</span>
+        <Link href="/petugas/dashboard" target="_blank" className={styles.contactBtn}>
+          <span>Dashboard Petugas</span>
           <span className={styles.arrowCircle}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
               <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -79,8 +79,8 @@ export default function HeroSection() {
             <h1 className={styles.headline}>Your Health &<br />Wellness Simplified</h1>
             
             <div className={styles.actions}>
-              <Link href="/pasien" className={styles.bookBtn}>
-                <span>Book an Appointment</span>
+              <Link href="/petugas" className={styles.bookBtn}>
+                <span>Menu Petugas</span>
                 <span className={styles.arrowCircleWhite}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="7" y1="17" x2="17" y2="7"></line>
@@ -89,8 +89,8 @@ export default function HeroSection() {
                 </span>
               </Link>
 
-              <Link href="/petugas" className={styles.exploreBtn}>
-                <span>Explore Service</span>
+              <Link href="/pasien" className={styles.exploreBtn}>
+                <span>Menu Pasien</span>
                 <span className={styles.arrowCircleTeal}>
                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                     <line x1="7" y1="17" x2="17" y2="7"></line>

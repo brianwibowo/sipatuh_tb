@@ -1,9 +1,9 @@
 .footer {
   /* Rich gradient overlay with a precise pixel-perfect grid texture */
   background: 
-    linear-gradient(135deg, rgba(10, 59, 46, 0.98) 0%, rgba(21, 94, 76, 0.98) 100%),
-    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
-  background-size: 100% 100%, 24px 24px; /* 24px dot grid pattern */
+    radial-gradient(circle at 1px 1px, rgba(255, 255, 255, 0.12) 1px, transparent 0),
+    linear-gradient(135deg, #0A3B2E 0%, #155E4C 100%);
+  background-size: 24px 24px, 100% 100%; /* 24px dot grid pattern on top of gradient */
   color: #ffffff;
   padding: 4.5rem 2rem 2.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.08);

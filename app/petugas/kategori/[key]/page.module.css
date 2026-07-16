@@ -65,7 +65,6 @@
 }
 
 .mainTitle {
-  font-family: var(--font-serif);
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: var(--space-sm);
   color: var(--primary-dark);

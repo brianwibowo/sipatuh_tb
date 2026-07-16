@@ -5,44 +5,11 @@
   background-color: var(--bg-base);
 }
 
-.heroSection {
-  background: 
-    radial-gradient(circle at 1px 1px, rgba(7, 94, 84, 0.05) 1px, transparent 0),
-    linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-base) 100%);
-  background-size: 24px 24px, 100% 100%;
-  padding: 5rem 2rem 3rem;
-  border-bottom: 1px solid var(--border-medium);
+.headerSection {
+  background: linear-gradient(180deg, var(--bg-surface) 0%, var(--bg-base) 100%);
+  padding: var(--space-2xl) 2rem var(--space-xl);
+  border-bottom: 1px solid var(--border-light);
   position: relative;
-  overflow: hidden;
-}
-
-/* Glowing mesh gradient background elements */
-.heroSection::before {
-  content: '';
-  position: absolute;
-  top: -120px;
-  right: -50px;
-  width: 350px;
-  height: 350px;
-  background: radial-gradient(circle, rgba(37, 211, 102, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(50px);
-  z-index: 1;
-  pointer-events: none;
-}
-
-.heroSection::after {
-  content: '';
-  position: absolute;
-  bottom: -150px;
-  left: -80px;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(7, 94, 84, 0.08) 0%, transparent 70%);
-  border-radius: 50%;
-  filter: blur(60px);
-  z-index: 1;
-  pointer-events: none;
 }
 
 
@@ -116,15 +83,13 @@
   font-size: 0.85rem;
   font-weight: 700;
   text-transform: uppercase;
-  color: var(--primary);
+  color: var(--secondary);
   letter-spacing: 0.05em;
   margin-bottom: var(--space-xs);
   display: block;
 }
 
 .mainTitle {
-  font-family: var(--font-serif);
-  font-size: 3rem;
   margin-bottom: var(--space-sm);
   color: var(--primary-dark);
 }

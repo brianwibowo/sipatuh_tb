@@ -281,7 +281,7 @@ export default function PetugasDashboardPage() {
   };
 
   const handleDeletePenyebab = async (id) => {
-    if (!confirm("Apakah Anda yakin ingin menghapus seksi penyebab ini? Menghapus penyebab juga akan menghapus artikel detailnya.")) return;
+    if (!confirm("Apakah Anda yakin ingin menghapus bagian penyebab ini? Menghapus penyebab juga akan menghapus artikel detailnya.")) return;
     try {
       const res = await fetch(`/api/penyebab?id=${id}`, {
         method: "DELETE",
@@ -451,7 +451,7 @@ export default function PetugasDashboardPage() {
             </div>
 
             {materiLoading ? (
-              <div className={styles.loading}>Memuat seksi materi...</div>
+              <div className={styles.loading}>Memuat bagian materi...</div>
             ) : editingMateriId ? (
               // Structured Layperson Form Editor
               <form onSubmit={handleSaveMateri} className={styles.editorForm}>
@@ -463,7 +463,7 @@ export default function PetugasDashboardPage() {
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Judul Seksi</label>
+                  <label className={styles.label}>Judul Bagian</label>
                   <input
                     type="text"
                     value={editMateriTitle}
@@ -740,7 +740,7 @@ export default function PetugasDashboardPage() {
                   <div key={materi.id} className={styles.materiRow}>
                     <div className={styles.rowInfo}>
                       <h4>{materi.title}</h4>
-                      <span className={styles.badge}>Seksi: {materi.section_key}</span>
+                      <span className={styles.badge}>Bagian: {materi.section_key}</span>
                     </div>
                     <button 
                       onClick={() => handleStartEditMateri(materi)} 

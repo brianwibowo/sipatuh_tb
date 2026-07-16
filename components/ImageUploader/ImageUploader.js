@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import styles from "./ImageUploader.module.css";
 
@@ -8,6 +8,10 @@ export default function ImageUploader({ onUploadSuccess, currentImageUrl, adminP
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [preview, setPreview] = useState(currentImageUrl || "");
+
+  useEffect(() => {
+    setPreview(currentImageUrl || "");
+  }, [currentImageUrl]);
 
   const handleFileChange = async (e) => {
     const file = e.target.files[0];

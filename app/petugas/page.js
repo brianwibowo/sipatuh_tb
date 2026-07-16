@@ -298,20 +298,56 @@ export default function PetugasInfoPage() {
                   <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
                 </div>
               ) : (
-                contents.map((content, idx) => (
-                  <article 
-                    key={content.id} 
-                    className={styles.articleCard} 
-                    id={content.section_key}
-                  >
-                    <div className={styles.cardContent}>
-                      <h2 className={styles.articleTitle}>
-                        <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
-                      </h2>
-                      {renderCardContent(content)}
-                    </div>
-                  </article>
-                ))
+                contents.map((content, idx) => {
+                  const isSplitCard = idx >= 1 && idx <= 3;
+                  const images = [
+                    "", // Card 1
+                    "/images/tb-education-hero.png", // Card 2
+                    "/images/medical-shaking-hands.png", // Card 3
+                    "/images/footer-care.png" // Card 4
+                  ];
+
+                  if (isSplitCard) {
+                    return (
+                      <article 
+                        key={content.id} 
+                        className={styles.articleCardSplit} 
+                        id={content.section_key}
+                      >
+                        <div className={styles.articleImageSide}>
+                          <Image
+                            src={images[idx]}
+                            alt={content.title}
+                            fill
+                            sizes="(max-width: 968px) 100vw, 320px"
+                            className={styles.splitImage}
+                          />
+                        </div>
+                        <div className={styles.articleContentSide}>
+                          <h2 className={styles.articleTitle}>
+                            <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
+                          </h2>
+                          {renderCardContent(content)}
+                        </div>
+                      </article>
+                    );
+                  }
+
+                  return (
+                    <article 
+                      key={content.id} 
+                      className={styles.articleCard} 
+                      id={content.section_key}
+                    >
+                      <div className={styles.cardContent}>
+                        <h2 className={styles.articleTitle}>
+                          <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
+                        </h2>
+                        {renderCardContent(content)}
+                      </div>
+                    </article>
+                  );
+                })
               )}
             </div>
 

@@ -169,6 +169,49 @@
   border-left-color: var(--primary-light);
 }
 
+.articleCardSplit {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  border-left: 5px solid var(--primary); /* Left border accent */
+  position: relative;
+  transition: var(--transition-base);
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+}
+
+.articleCardSplit:hover {
+  box-shadow: var(--shadow-md);
+  border-color: rgba(13, 93, 73, 0.15);
+  border-left-color: var(--primary-light);
+}
+
+.articleImageSide {
+  width: 280px;
+  min-width: 280px;
+  position: relative;
+  overflow: hidden;
+  background-color: var(--bg-muted);
+}
+
+.splitImage {
+  object-fit: cover;
+  transition: var(--transition-slow);
+}
+
+.articleCardSplit:hover .splitImage {
+  transform: scale(1.04);
+}
+
+.articleContentSide {
+  flex-grow: 1;
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+}
+
 .editableCard {
   border-left-color: var(--secondary);
   border-style: dashed;
@@ -582,6 +625,16 @@
 
   .sidebar {
     display: none;
+  }
+
+  .articleCardSplit {
+    flex-direction: column;
+  }
+
+  .articleImageSide {
+    width: 100%;
+    min-width: 100%;
+    height: 240px;
   }
 }
 

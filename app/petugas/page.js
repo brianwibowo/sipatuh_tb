@@ -336,23 +336,45 @@ export default function PetugasInfoPage() {
                   </div>
                 </div>
 
+                {/* Card 1: Penyebab TB */}
                 <div className={`${styles.sidebarCard} ${styles.ctaCard}`}>
-                  <h3 className={styles.ctaTitle}>Lanjut ke Penyebab TB</h3>
+                  <h3 className={styles.ctaTitle}>Penyebab & Penularan</h3>
                   <p className={styles.ctaDesc}>
-                    Lihat daftar detail penyebab tuberkulosis, cara penularan,
-                    serta faktor risiko infeksi pada pasien.
+                    Pelajari faktor pemicu utama, droplet udara, dan kerentanan imun.
                   </p>
                   <Link href="/petugas/penyebab" className={styles.ctaLink}>
-                    <span>Lihat Penyebab TB</span>
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className={styles.ctaIcon}
-                    >
+                    <span>Buka Penyebab & Penularan</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* Card 2: Video Edukasi Pasien */}
+                <div className={`${styles.sidebarCard} ${styles.videoCtaCard}`}>
+                  <h3 className={styles.ctaTitle}>Video Edukasi Pasien</h3>
+                  <p className={styles.ctaDesc}>
+                    Tonton materi video interaktif kepatuhan minum obat bagi pasien.
+                  </p>
+                  <Link href="/pasien" className={styles.ctaLink}>
+                    <span>Tonton Video Pasien</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
+                      <line x1="5" y1="12" x2="19" y2="12"></line>
+                      <polyline points="12 5 19 12 12 19"></polyline>
+                    </svg>
+                  </Link>
+                </div>
+
+                {/* Card 3: Portal Petugas */}
+                <div className={`${styles.sidebarCard} ${styles.dashboardCtaCard}`}>
+                  <h3 className={styles.ctaTitle}>Portal Editor Petugas</h3>
+                  <p className={styles.ctaDesc}>
+                    Akses petugas kesehatan untuk menyunting materi & mengelola video.
+                  </p>
+                  <Link href="/petugas/dashboard" target="_blank" className={styles.ctaLink}>
+                    <span>Buka Portal Petugas</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={styles.ctaIcon}>
                       <line x1="5" y1="12" x2="19" y2="12"></line>
                       <polyline points="12 5 19 12 12 19"></polyline>
                     </svg>

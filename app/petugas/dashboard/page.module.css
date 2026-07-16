@@ -1,0 +1,525 @@
+.loginContainer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--bg-base);
+  padding: 2rem;
+}
+
+.loginCard {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-light);
+  padding: var(--space-2xl);
+  max-width: 480px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.loginHeader {
+  text-align: center;
+}
+
+.loginLogo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  letter-spacing: -0.02em;
+  margin-bottom: var(--space-sm);
+  display: block;
+}
+
+.logoHighlight {
+  color: var(--secondary);
+}
+
+.loginTitle {
+  font-size: 1.4rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.loginSubtitle {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+.input, .textarea {
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-medium);
+  outline: none;
+  font-size: 0.95rem;
+  color: var(--text-main);
+  background-color: var(--bg-muted-light);
+  transition: var(--transition-fast);
+}
+
+.input:focus, .textarea:focus {
+  border-color: var(--secondary);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px var(--secondary-glow);
+}
+
+.textarea {
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.loginBtn {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.85rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-base);
+}
+
+.loginBtn:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1.5px);
+}
+
+.errorContainer {
+  background-color: var(--danger-glow);
+  color: var(--danger);
+  border: 1px solid rgba(163, 45, 45, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.backHomeBtn {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  transition: var(--transition-fast);
+}
+
+.backHomeBtn:hover {
+  color: var(--primary);
+}
+
+/* Dashboard Workspace */
+.dashboardWrapper {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+  background-color: var(--bg-base);
+}
+
+.sidebar {
+  background-color: var(--bg-dark);
+  color: #ffffff;
+  padding: var(--space-xl) var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebarBrand {
+  margin-bottom: var(--space-2xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebarBrand h3 {
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.sidebarSub {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-light);
+  font-weight: 600;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  flex: 1;
+}
+
+.sidebarBtn {
+  background: transparent;
+  color: rgba(255, 255, 255, 0.7);
+  border: none;
+  padding: 0.85rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.sidebarBtn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+.sidebarBtnActive {
+  background-color: var(--primary);
+  color: #ffffff;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebarBtnActive:hover {
+  background-color: var(--primary);
+}
+
+.sidebarFooter {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--space-md);
+}
+
+.logoutBtn {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: transparent;
+  color: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.logoutBtn:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+/* Workspace Main Container */
+.mainWorkspace {
+  padding: var(--space-2xl);
+  overflow-y: auto;
+  height: 100vh;
+}
+
+.tabContent {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-light);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.tabHeader h2 {
+  font-size: 1.75rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-xs);
+}
+
+.tabHeader p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.loading {
+  text-align: center;
+  padding: var(--space-2xl);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Data List Row Items */
+.dataGrid, .causesList, .videoList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.materiRow, .causeRow, .videoRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+  background-color: var(--bg-muted-light);
+  transition: var(--transition-fast);
+  gap: var(--space-md);
+}
+
+.materiRow:hover, .causeRow:hover, .videoRow:hover {
+  border-color: rgba(13, 93, 73, 0.15);
+  box-shadow: var(--shadow-sm);
+}
+
+.rowInfo h4 {
+  font-size: 1.15rem;
+  color: var(--primary-dark);
+  margin-bottom: 2px;
+}
+
+.rowDesc {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.badge {
+  display: inline-block;
+  background-color: var(--primary-glow);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+}
+
+.rowEditBtn, .rowDeleteBtn {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+  border: 1px solid var(--border-medium);
+}
+
+.rowEditBtn {
+  background-color: #ffffff;
+  color: var(--secondary);
+}
+
+.rowEditBtn:hover {
+  background-color: var(--secondary-glow);
+  border-color: var(--secondary);
+}
+
+.rowDeleteBtn {
+  background-color: transparent;
+  color: var(--danger);
+}
+
+.rowDeleteBtn:hover {
+  background-color: var(--danger-glow);
+  border-color: var(--danger);
+}
+
+/* Causes Custom Card UI */
+.causeRowThumbnail {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-light);
+  flex-shrink: 0;
+}
+
+/* Video Add Section */
+.videoAddForm {
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+}
+
+.videoAddForm h4 {
+  color: var(--primary-dark);
+}
+
+.videoUrl {
+  font-size: 0.8rem;
+  color: var(--text-light);
+}
+
+.toggleBtn {
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.toggleOn {
+  background-color: #e6f4ea;
+  color: #137333;
+}
+
+.toggleOff {
+  background-color: #fce8e6;
+  color: #c5221f;
+}
+
+.emptyText {
+  color: var(--text-light);
+  font-style: italic;
+  text-align: center;
+  padding: var(--space-md);
+}
+
+/* Editor Form layout inside dashboard */
+.editorForm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.editorFormHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-light);
+  padding-bottom: var(--space-md);
+  margin-bottom: var(--space-xs);
+}
+
+.editorFormHeader h3 {
+  color: var(--primary-dark);
+}
+
+.cancelLinkBtn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.cancelLinkBtn:hover {
+  color: var(--primary);
+}
+
+.sectionTitle {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  border-bottom: 1.5px solid var(--border-light);
+  padding-bottom: var(--space-xs);
+  margin-top: var(--space-sm);
+}
+
+.nestedCard {
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-sm);
+  border-top: 1px solid var(--border-light);
+  padding-top: var(--space-lg);
+  margin-top: var(--space-md);
+}
+
+.submitBtn, .cancelBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.submitBtn {
+  background-color: var(--secondary);
+  color: #ffffff;
+  border: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.submitBtn:hover {
+  background-color: var(--secondary-light);
+  transform: translateY(-1px);
+}
+
+.cancelBtn {
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+}
+
+.cancelBtn:hover {
+  background-color: var(--bg-muted);
+}
+
+.addBtn {
+  background-color: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.addBtn:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 968px) {
+  .dashboardWrapper {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    height: auto;
+  }
+  
+  .mainWorkspace {
+    height: auto;
+    padding: var(--space-md);
+  }
+}

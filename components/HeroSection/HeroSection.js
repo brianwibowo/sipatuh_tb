@@ -15,7 +15,6 @@ export default function HeroSection() {
             <span className={styles.activeDot}></span> Beranda
           </Link>
           <Link href="/petugas" className={styles.navLink}>Materi TB</Link>
-          <Link href="/petugas/penyebab" className={styles.navLink}>Penyebab</Link>
           <Link href="/pasien" className={styles.navLink}>Video Pasien</Link>
         </div>
 

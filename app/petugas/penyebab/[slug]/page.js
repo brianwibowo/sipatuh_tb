@@ -12,6 +12,7 @@ export default function PetugasArtikelDetailPage({ params }) {
 
   const [artikel, setArtikel] = useState(null);
   const [penyebab, setPenyebab] = useState(null);
+  const [allArticles, setAllArticles] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchData = async () => {
@@ -40,6 +41,13 @@ export default function PetugasArtikelDetailPage({ params }) {
           }
         }
       }
+
+      // Fetch all articles for related list
+      const allRes = await fetch("/api/artikel");
+      const allData = await allRes.json();
+      if (allRes.ok && allData.artikels) {
+        setAllArticles(allData.artikels);
+      }
     } catch (err) {
       console.error("Gagal memuat detail artikel", err);
     } finally {
@@ -50,6 +58,41 @@ export default function PetugasArtikelDetailPage({ params }) {
   useEffect(() => {
     fetchData();
   }, [slug]);
+
+  const getRelatedArticles = () => {
+    if (!artikel) return [];
+    const currentSlug = artikel.slug;
+    
+    // Determine category of current article
+    let category = "";
+    if (currentSlug.includes("bakteri") || currentSlug.includes("imun")) {
+      category = "penjelasan_umum";
+    } else if (currentSlug.includes("gejala")) {
+      category = "gejala";
+    } else if (currentSlug.includes("pmo") || currentSlug.includes("obat")) {
+      category = "pengobatan";
+    } else {
+      category = "pencegahan";
+    }
+    
+    // Filter other articles in same category
+    return allArticles.filter(art => {
+      if (art.slug === currentSlug) return false;
+      
+      let artCat = "";
+      if (art.slug.includes("bakteri") || art.slug.includes("imun")) {
+        artCat = "penjelasan_umum";
+      } else if (art.slug.includes("gejala")) {
+        artCat = "gejala";
+      } else if (art.slug.includes("pmo") || art.slug.includes("obat")) {
+        artCat = "pengobatan";
+      } else {
+        artCat = "pencegahan";
+      }
+      
+      return artCat === category;
+    });
+  };
 
   const getLocalFallbackImage = (slugStr) => {
     if (!slugStr) return "/images/lungs-illustration.png";
@@ -71,7 +114,7 @@ export default function PetugasArtikelDetailPage({ params }) {
       <div className={styles.container}>
         {/* Breadcrumbs */}
         <div className={styles.breadcrumbs}>
-          <Link href="/petugas/penyebab" className={styles.backLink}>
+          <Link href="/petugas" className={styles.backLink}>
             <svg
               width="16"
               height="16"
@@ -84,7 +127,7 @@ export default function PetugasArtikelDetailPage({ params }) {
               <line x1="19" y1="12" x2="5" y2="12"></line>
               <polyline points="12 19 5 12 12 5"></polyline>
             </svg>
-            <span>Kembali ke Penyebab</span>
+            <span>Kembali ke Info TB</span>
           </Link>
         </div>
 
@@ -117,6 +160,23 @@ export default function PetugasArtikelDetailPage({ params }) {
                 className={styles.body}
                 dangerouslySetInnerHTML={{ __html: artikel.body }}
               />
+
+              {/* Related articles at the bottom */}
+              {getRelatedArticles().length > 0 && (
+                <div className={styles.relatedBox}>
+                  <h3 className={styles.relatedTitle}>Artikel Terkait Lainnya</h3>
+                  <div className={styles.relatedGrid}>
+                    {getRelatedArticles().map(art => (
+                      <Link key={art.id} href={`/petugas/penyebab/${art.slug}`} className={styles.relatedCard}>
+                        <div className={styles.relatedCardBody}>
+                          <span className={styles.relatedBadge}>BACA ARTIKEL</span>
+                          <h4 className={styles.relatedCardTitle}>{art.title}</h4>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
             </article>
           </div>
         ) : (

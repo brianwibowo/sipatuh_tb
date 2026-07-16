@@ -289,3 +289,60 @@
   font-size: 0.85rem;
   font-weight: 600;
 }
+
+/* Related articles at the bottom of detailed article */
+.relatedBox {
+  margin-top: var(--space-3xl);
+  border-top: 1.5px solid var(--border-medium);
+  padding-top: var(--space-2xl);
+}
+
+.relatedTitle {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-xl);
+}
+
+.relatedGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+}
+
+.relatedCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+}
+
+.relatedCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: rgba(7, 94, 84, 0.15);
+}
+
+.relatedCardBody {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.relatedBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.05em;
+}
+
+.relatedCardTitle {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  line-height: 1.4;
+}

@@ -374,18 +374,63 @@ export default function PetugasInfoPage() {
                 <div className={styles.sidebarCard}>
                   <h3 className={styles.sidebarTitle}>Navigasi Info</h3>
                   <div className={styles.sidebarNav}>
-                    <a href="#penjelasan_umum" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Apa itu TB?
-                    </a>
-                    <a href="#gejala" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Gejala TB
-                    </a>
-                    <a href="#pengobatan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Skema Pengobatan
-                    </a>
-                    <a href="#pencegahan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Pencegahan Penularan
-                    </a>
+                    {/* Apa itu TB? */}
+                    <div className={styles.navGroup}>
+                      <a href="#penjelasan_umum" className={styles.navLink}>
+                        <span className={styles.navIcon}>•</span> Apa itu TB?
+                      </a>
+                      <div className={styles.subLinks}>
+                        {getRelatedArticles("penjelasan_umum").map(art => (
+                          <Link key={art.id} href={`/petugas/penyebab/${art.slug}`} className={styles.subLink}>
+                            📄 {art.title.replace("Mengenal ", "").replace(" dalam Infeksi TB", "")}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Gejala TB */}
+                    <div className={styles.navGroup}>
+                      <a href="#gejala" className={styles.navLink}>
+                        <span className={styles.navIcon}>•</span> Gejala TB
+                      </a>
+                      {getRelatedArticles("gejala").length > 0 && (
+                        <div className={styles.subLinks}>
+                          {getRelatedArticles("gejala").map(art => (
+                            <Link key={art.id} href={`/petugas/penyebab/${art.slug}`} className={styles.subLink}>
+                              📄 {art.title}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Skema Pengobatan */}
+                    <div className={styles.navGroup}>
+                      <a href="#pengobatan" className={styles.navLink}>
+                        <span className={styles.navIcon}>•</span> Skema Pengobatan
+                      </a>
+                      <div className={styles.subLinks}>
+                        {getRelatedArticles("pengobatan").map(art => (
+                          <Link key={art.id} href={`/petugas/penyebab/${art.slug}`} className={styles.subLink}>
+                            📄 {art.title.replace("Pentingnya Peran ", "").replace(" dan Kepatuhan Obat", " & Kepatuhan")}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Pencegahan Penularan */}
+                    <div className={styles.navGroup}>
+                      <a href="#pencegahan" className={styles.navLink}>
+                        <span className={styles.navIcon}>•</span> Pencegahan Penularan
+                      </a>
+                      <div className={styles.subLinks}>
+                        {getRelatedArticles("pencegahan").map(art => (
+                          <Link key={art.id} href={`/petugas/penyebab/${art.slug}`} className={styles.subLink}>
+                            📄 {art.title.replace("Mengenal ", "").replace(" TB Melalui Udara", "")}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

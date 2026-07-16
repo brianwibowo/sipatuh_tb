@@ -51,8 +51,8 @@ export default function HeroSection() {
         {/* Background Image */}
         <div className={styles.heroBgImageWrapper}>
           <Image
-            src="/images/medical-shaking-hands.png"
-            alt="Doctor Shaking Hands with Patient"
+            src="/images/tb-education-hero.png"
+            alt="Doctor explaining tuberculosis using lung diagram"
             fill
             priority
             className={styles.heroBgImage}
@@ -76,7 +76,7 @@ export default function HeroSection() {
 
           {/* Bottom Left Headline & Buttons */}
           <div className={styles.bottomLeftGroup}>
-            <h1 className={styles.headline}>Your Health &<br />Wellness Simplified</h1>
+            <h1 className={styles.headline}>Bersama Sembuh<br />dari Tuberkulosis</h1>
             
             <div className={styles.actions}>
               <Link href="/petugas" className={styles.bookBtn}>

@@ -150,7 +150,7 @@ export default function PetugasPenyebabPage() {
             </div>
           ) : (
             <div className={styles.grid}>
-              {penyebabList.map((card) => {
+              {penyebabList.map((card, index) => {
                 const details = getCardDetails(card.slug);
 
                 return (
@@ -162,6 +162,7 @@ export default function PetugasPenyebabPage() {
                         fill
                         className={styles.cardImage}
                         sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        priority={index < 2}
                       />
                     </div>
 

@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 
 export default function PetugasDashboardPage() {
   const { isAdmin, adminPassword, login, logout, getAdminHeaders, loading: adminLoading } = useAdmin();
-  const [activeTab, setActiveTab] = useState("materi"); // "materi" | "penyebab" | "video"
+  const [activeTab, setActiveTab] = useState("kategori"); // "kategori" | "penyebab" | "video"
   const [passwordInput, setPasswordInput] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);

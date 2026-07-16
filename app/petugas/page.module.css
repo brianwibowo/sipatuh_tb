@@ -104,17 +104,23 @@
   padding: var(--space-xl) 2rem var(--space-3xl);
 }
 
-.layout {
+.topRow {
   display: grid;
   grid-template-columns: 1.6fr 0.9fr;
   gap: var(--space-3xl);
   align-items: start;
 }
 
-.articles {
+.topRowMain {
+  display: flex;
+  flex-direction: column;
+}
+
+.bottomCards {
   display: flex;
   flex-direction: column;
   gap: var(--space-2xl);
+  margin-top: var(--space-2xl);
 }
 
 .articleCard {
@@ -541,7 +547,7 @@
     margin-top: var(--space-md);
   }
 
-  .layout {
+  .topRow {
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
   }
@@ -891,6 +897,59 @@
   font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-muted);
+}
+
+/* Premium clinical table & blockquote styles */
+.articleBody table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-lg) 0;
+  font-size: 0.95rem;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-medium);
+}
+
+.articleBody th {
+  background-color: var(--primary-glow);
+  color: var(--primary-dark);
+  font-weight: 700;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--border-medium);
+  text-align: left;
+}
+
+.articleBody td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-medium);
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.articleBody tr:hover {
+  background-color: rgba(7, 94, 84, 0.02);
+}
+
+.articleBody tr:last-child td {
+  border-bottom: none;
+}
+
+.articleBody blockquote {
+  background-color: var(--bg-muted-light);
+  border-left: 4px solid var(--primary);
+  padding: 1.25rem var(--space-md);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: var(--space-lg) 0;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.articleBody blockquote strong {
+  color: var(--primary-dark);
+  font-weight: 700;
 }
 
 /* Legacy Fallbacks */

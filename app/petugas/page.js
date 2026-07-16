@@ -148,52 +148,45 @@ export default function PetugasInfoPage() {
       {/* Main Content Area */}
       <div className={styles.contentSection}>
         <div className={styles.container}>
-          <div className={styles.layout}>
-            {/* Left Column: Content list */}
-            <div className={styles.articles}>
+          {/* Top Row: Card 1 + Sidebar (L-shape) */}
+          <div className={styles.topRow}>
+            {/* First card only */}
+            <div className={styles.topRowMain}>
               {loading ? (
-                <div className={styles.loadingWrapper}>
-                  <div className="shimmer" style={{ height: "120px", borderRadius: "16px", marginBottom: "2rem" }}></div>
-                  <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
-                </div>
-              ) : (
-                categories.map((cat, idx) => {
-                  const matchingContent = contents.find(c => c.section_key === cat.key);
-                  return (
-                    <article 
-                      key={cat.id} 
-                      className={styles.articleCard} 
-                      id={cat.key}
-                    >
-                      <div className={styles.cardContent}>
-                        <h2 className={styles.articleTitle}>
-                          <span className={styles.titleIndex}>0{idx + 1}.</span> {cat.title}
-                        </h2>
-                        {matchingContent ? (
-                          renderCardContent(matchingContent)
-                        ) : (
-                          <div className={styles.articleBody}>
-                            <p className={styles.leadText}>{cat.description}</p>
-                          </div>
-                        )}
-
-                        <div className={styles.viewArticlesRow}>
-                          <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
-                            <span>Buka Kumpulan Artikel {cat.title}</span>
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
-                              <line x1="5" y1="12" x2="19" y2="12"></line>
-                              <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                          </Link>
+                <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
+              ) : categories.length > 0 && (() => {
+                const cat = categories[0];
+                const matchingContent = contents.find(c => c.section_key === cat.key);
+                return (
+                  <article className={styles.articleCard} id={cat.key}>
+                    <div className={styles.cardContent}>
+                      <h2 className={styles.articleTitle}>
+                        <span className={styles.titleIndex}>01.</span> {cat.title}
+                      </h2>
+                      {matchingContent ? (
+                        renderCardContent(matchingContent)
+                      ) : (
+                        <div className={styles.articleBody}>
+                          <p className={styles.leadText}>{cat.description}</p>
                         </div>
+                      )}
+
+                      <div className={styles.viewArticlesRow}>
+                        <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
+                          <span>Buka Kumpulan Artikel {cat.title}</span>
+                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                            <polyline points="12 5 19 12 12 19"></polyline>
+                          </svg>
+                        </Link>
                       </div>
-                    </article>
-                  );
-                })
-              )}
+                    </div>
+                  </article>
+                );
+              })()}
             </div>
 
-            {/* Right Column: Menu Quick Navigation */}
+            {/* Right Column: Sidebar */}
             <aside className={styles.sidebar}>
               <div className={styles.sidebarSticky}>
                 <div className={styles.sidebarCard}>
@@ -208,6 +201,43 @@ export default function PetugasInfoPage() {
                 </div>
               </div>
             </aside>
+          </div>
+
+          {/* Bottom Section: Cards 2-4 full width */}
+          <div className={styles.bottomCards}>
+            {!loading && categories.slice(1).map((cat, idx) => {
+              const matchingContent = contents.find(c => c.section_key === cat.key);
+              return (
+                <article 
+                  key={cat.id} 
+                  className={styles.articleCard} 
+                  id={cat.key}
+                >
+                  <div className={styles.cardContent}>
+                    <h2 className={styles.articleTitle}>
+                      <span className={styles.titleIndex}>0{idx + 2}.</span> {cat.title}
+                    </h2>
+                    {matchingContent ? (
+                      renderCardContent(matchingContent)
+                    ) : (
+                      <div className={styles.articleBody}>
+                        <p className={styles.leadText}>{cat.description}</p>
+                      </div>
+                    )}
+
+                    <div className={styles.viewArticlesRow}>
+                      <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
+                        <span>Buka Kumpulan Artikel {cat.title}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </div>

@@ -2,6 +2,7 @@ import { Poppins, Lora } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar/Navbar";
 import Footer from "@/components/Footer/Footer";
+import ScrollToTop from "@/components/ScrollToTop/ScrollToTop";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }) {
           {children}
         </div>
         <Footer />
+        <ScrollToTop />
       </body>
     </html>
   );

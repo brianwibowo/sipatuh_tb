@@ -150,6 +150,59 @@
   margin-bottom: 0.5rem;
 }
 
+/* Premium clinical table & blockquote styles */
+.body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-lg) 0;
+  font-size: 0.95rem;
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-medium);
+}
+
+.body th {
+  background-color: var(--primary-glow);
+  color: var(--primary-dark);
+  font-weight: 700;
+  padding: 1rem 1.25rem;
+  border-bottom: 2px solid var(--border-medium);
+  text-align: left;
+}
+
+.body td {
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--border-medium);
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+.body tr:hover {
+  background-color: rgba(7, 94, 84, 0.02);
+}
+
+.body tr:last-child td {
+  border-bottom: none;
+}
+
+.body blockquote {
+  background-color: var(--bg-muted-light);
+  border-left: 4px solid var(--primary);
+  padding: 1.25rem var(--space-md);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
+  margin: var(--space-lg) 0;
+  color: var(--primary-dark);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.body blockquote strong {
+  color: var(--primary-dark);
+  font-weight: 700;
+}
+
 /* Empty State */
 .emptyState {
   background-color: var(--bg-surface);

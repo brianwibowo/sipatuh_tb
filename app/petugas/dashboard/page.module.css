@@ -519,32 +519,64 @@
   }
   
   .sidebar {
-    height: auto;
-    padding: var(--space-md);
+    display: grid;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 0.75rem 1rem;
+    padding: 1rem;
+    height: auto;
     border-right: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .sidebarBrand {
-    margin-bottom: var(--space-sm);
-    padding-bottom: var(--space-xs);
-    width: 100%;
-    text-align: center;
+    grid-column: 1;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    text-align: left;
+    width: auto;
+  }
+
+  .sidebarBrand h3 {
+    font-size: 1.15rem;
+  }
+
+  .sidebarSub {
+    font-size: 0.65rem;
+  }
+
+  .sidebarFooter {
+    grid-column: 2;
+    border-top: none;
+    padding-top: 0;
+    margin: 0;
+  }
+
+  .logoutBtn {
+    padding: 0.45rem 0.85rem;
+    font-size: 0.75rem;
+    border-radius: var(--radius-sm);
+    width: auto;
+    white-space: nowrap;
   }
 
   .sidebarNav {
+    grid-column: 1 / span 2;
+    display: flex;
     flex-direction: row;
     width: 100%;
-    justify-content: center;
-    gap: var(--space-xs);
+    gap: 0.5rem;
+    margin-top: 0.25rem;
   }
 
   .sidebarBtn {
-    padding: 0.65rem 1rem;
-    font-size: 0.85rem;
-    text-align: center;
     flex: 1;
+    padding: 0.55rem 0.5rem;
+    font-size: 0.8rem;
+    text-align: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
   }
   
   .mainWorkspace {
@@ -1018,5 +1050,138 @@
   opacity: 0.4;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+/* Logout Confirmation Modal styling */
+.confirmOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(17, 27, 33, 0.7); /* WhatsApp web style dark backdrop */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  padding: 1.5rem;
+}
+
+.confirmModal {
+  background-color: var(--bg-surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-medium);
+  padding: var(--space-xl);
+  max-width: 400px;
+  width: 100%;
+  text-align: center;
+}
+
+.confirmHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: var(--space-md);
+}
+
+.confirmIcon {
+  font-size: 2.5rem;
+}
+
+.confirmHeader h3 {
+  color: var(--primary-dark);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.confirmText {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-bottom: var(--space-lg);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.confirmCancelBtn {
+  flex: 1;
+  background-color: var(--bg-base);
+  color: var(--text-main);
+  border: 1px solid var(--border-medium);
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.confirmCancelBtn:hover {
+  background-color: var(--bg-muted);
+}
+
+.confirmSubmitBtn {
+  flex: 1;
+  background-color: var(--danger);
+  color: #ffffff;
+  border: none;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.confirmSubmitBtn:hover {
+  background-color: var(--danger-light);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 640px) {
+  .confirmOverlay {
+    padding: 1rem;
+  }
+  .confirmModal {
+    padding: var(--space-lg);
+  }
+  .confirmActions {
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+  }
+  .editorPanel {
+    padding: 1rem;
+  }
+  .videoAddForm {
+    padding: 1rem;
+  }
+  .inputRow {
+    flex-direction: column;
+    gap: var(--space-md);
+  }
+  .editorFormHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+}
+
+.videoFormGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (max-width: 640px) {
+  .videoFormGrid {
+    grid-template-columns: 1fr;
+  }
 }
 

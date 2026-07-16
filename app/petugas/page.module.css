@@ -133,6 +133,14 @@
   position: relative;
   transition: var(--transition-base);
   scroll-margin-top: 100px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.cardContent {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .card1Top {
@@ -569,6 +577,10 @@
     align-self: flex-start;
   }
 
+  .articleCard {
+    padding: 1.25rem;
+  }
+
   .heroGrid {
     grid-template-columns: 1fr;
     gap: var(--space-md);
@@ -975,15 +987,23 @@
   color: var(--text-muted);
 }
 
+.articleBody {
+  width: 100%;
+  min-width: 0;
+  max-width: 100%;
+}
+
 /* Premium clinical table & blockquote styles */
 .articleBody table {
-  width: 100%;
+  display: block;
+  width: 100% !important;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border-collapse: collapse;
   margin: var(--space-lg) 0;
   font-size: 0.95rem;
   background-color: var(--bg-surface);
   border-radius: var(--radius-md);
-  overflow: hidden;
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-medium);
 }
@@ -995,6 +1015,7 @@
   padding: 1rem 1.25rem;
   border-bottom: 2px solid var(--border-medium);
   text-align: left;
+  min-width: 120px;
 }
 
 .articleBody td {
@@ -1002,6 +1023,7 @@
   border-bottom: 1px solid var(--border-medium);
   line-height: 1.6;
   color: var(--text-main);
+  min-width: 120px;
 }
 
 .articleBody tr:hover {

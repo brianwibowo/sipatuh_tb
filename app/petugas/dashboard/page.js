@@ -15,6 +15,7 @@ export default function PetugasDashboardPage() {
   const [passwordInput, setPasswordInput] = useState("");
   const [loginError, setLoginError] = useState("");
   const [loginLoading, setLoginLoading] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   // Laman 1: Materi Edukasi states
   const [materiList, setMateriList] = useState([]);
@@ -700,7 +701,7 @@ export default function PetugasDashboardPage() {
         </nav>
 
         <div className={styles.sidebarFooter}>
-          <button onClick={logout} className={styles.logoutBtn}>
+          <button onClick={() => setShowLogoutConfirm(true)} className={styles.logoutBtn}>
             Log Out (Keluar Sesi)
           </button>
         </div>
@@ -756,7 +757,7 @@ export default function PetugasDashboardPage() {
                         </div>
 
                         <div className={styles.sectionTitle}>Tabel Ringkasan Statistik</div>
-                        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+                        <div className={styles.videoFormGrid}>
                           {parsedMateriBody.stats?.map((stat, sIdx) => (
                             <div key={sIdx} className={styles.nestedCard}>
                               <div className={styles.inputGroup}>
@@ -1525,7 +1526,7 @@ export default function PetugasDashboardPage() {
             {/* Quick form add video */}
             <form onSubmit={handleAddVideo} className={styles.videoAddForm}>
               <h4>➕ Tambah Video YouTube Baru</h4>
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem", marginTop: "1rem" }}>
+              <div className={styles.videoFormGrid}>
                 <div className={styles.inputGroup}>
                   <label className={styles.label}>Judul Video</label>
                   <input
@@ -1616,6 +1617,38 @@ export default function PetugasDashboardPage() {
           </div>
         )}
       </main>
+
+      {/* Logout Confirmation Modal */}
+      {showLogoutConfirm && (
+        <div className={styles.confirmOverlay} onClick={() => setShowLogoutConfirm(false)}>
+          <div className={`${styles.confirmModal} animate-scale-up`} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.confirmHeader}>
+              <span className={styles.confirmIcon}>🚪</span>
+              <h3>Konfirmasi Keluar Sesi</h3>
+            </div>
+            <p className={styles.confirmText}>
+              Apakah Anda yakin ingin keluar dari panel administrasi petugas kesehatan?
+            </p>
+            <div className={styles.confirmActions}>
+              <button 
+                onClick={() => setShowLogoutConfirm(false)} 
+                className={styles.confirmCancelBtn}
+              >
+                Batal
+              </button>
+              <button 
+                onClick={() => {
+                  setShowLogoutConfirm(false);
+                  logout();
+                }} 
+                className={styles.confirmSubmitBtn}
+              >
+                Ya, Keluar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -32,7 +32,7 @@ export default function Footer() {
                     <circle cx="12" cy="10" r="3"/>
                   </svg>
                 </span>
-                <span>Jl. Percetakan Negara No. 29, Jakarta Pusat, Indonesia</span>
+                <span>Jl. Imam Bonjol No. 207, Semarang Tengah, Kota Semarang, Jawa Tengah 50131</span>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactIcon}>
@@ -40,7 +40,7 @@ export default function Footer() {
                     <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
                   </svg>
                 </span>
-                <span>+62 21 424 9000</span>
+                <span>+62 24 351 7261</span>
               </li>
               <li className={styles.contactItem}>
                 <span className={styles.contactIcon}>
@@ -49,19 +49,9 @@ export default function Footer() {
                     <polyline points="22,6 12,13 2,6"/>
                   </svg>
                 </span>
-                <span>sipatuh.tb@kemkes.go.id</span>
+                <span>sipatuh.tb@dinus.ac.id</span>
               </li>
             </ul>
-
-            <div className={styles.footerCareCard}>
-              <Image
-                src="/images/footer-care.png"
-                alt="Doctor comforting patient illustration"
-                width={160}
-                height={120}
-                className={styles.footerCareImg}
-              />
-            </div>
           </div>
 
           {/* Right Column: Socials and Links */}
@@ -70,7 +60,7 @@ export default function Footer() {
               <h3 className={styles.columnTitle}>Our Social Channels</h3>
               <p className={styles.socialDesc}>
                 Akses informasi edukasi pencegahan tuberkulosis terkini, penelitian, 
-                serta rilis berita program Kemenkes RI secara langsung.
+                serta rilis media Universitas Dian Nuswantoro (UDINUS) secara langsung.
               </p>
 
               <div className={styles.socialRow}>
@@ -133,7 +123,7 @@ export default function Footer() {
             <span>Privacy Policy</span>
           </div>
           <div className={styles.copyrightText}>
-            &copy; {currentYear} SIPATUH-TB. Hak Cipta Dilindungi Kemenkes RI.
+            &copy; {currentYear} SIPATUH-TB. Dikembangkan oleh Universitas Dian Nuswantoro (UDINUS). Hak Cipta Dilindungi.
           </div>
         </div>
       </div>

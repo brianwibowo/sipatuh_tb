@@ -7,27 +7,27 @@
   /* HSL Tailored Palettes */
   --primary-h: 165;
   --primary-s: 76%;
-  --primary-l: 25%; /* #0F6E56 */
+  --primary-l: 22%; /* #0D5D49 */
   
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
-  --primary-light: hsl(var(--primary-h), var(--primary-s), 35%);
-  --primary-dark: hsl(var(--primary-h), var(--primary-s), 18%);
+  --primary-light: hsl(var(--primary-h), var(--primary-s), 30%);
+  --primary-dark: hsl(var(--primary-h), var(--primary-s), 15%);
   --primary-glow: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
 
   --secondary-h: 210;
   --secondary-s: 74%;
-  --secondary-l: 37%; /* #185FA5 */
+  --secondary-l: 32%; /* #144F8A */
   
   --secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
-  --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 47%);
+  --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 42%);
   --secondary-glow: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.15);
 
   --neutral-h: 48;
   --neutral-s: 3%;
   --neutral-l: 36%; /* #5F5E5A */
   
-  --text-main: hsl(var(--neutral-h), var(--neutral-s), 20%);
-  --text-muted: hsl(var(--neutral-h), var(--neutral-s), 45%);
+  --text-main: hsl(var(--neutral-h), var(--neutral-s), 14%);
+  --text-muted: hsl(var(--neutral-h), var(--neutral-s), 36%);
   --text-light: hsl(var(--neutral-h), var(--neutral-s), 65%);
 
   --danger-h: 0;
@@ -39,13 +39,13 @@
   --danger-glow: hsla(var(--danger-h), var(--danger-s), var(--danger-l), 0.1);
 
   /* Warm Medical Backgrounds (Anti-Sterile) */
-  --bg-base: #FCFAF6;        /* Soft cream warm background */
+  --bg-base: #F7F5F0;        /* Deeper warm cream background for higher card contrast */
   --bg-surface: #FFFFFF;     /* Pure white cards */
-  --bg-muted: #F3EFE9;       /* Slightly darker warm grey */
-  --bg-muted-light: #F9F7F3;
-  --bg-dark: #1E2321;
-  --border-light: rgba(15, 110, 86, 0.08);
-  --border-medium: rgba(95, 94, 90, 0.15);
+  --bg-muted: #EFEBE4;       /* Slightly darker warm grey */
+  --bg-muted-light: #F6F4F0;
+  --bg-dark: #1A1F1D;
+  --border-light: rgba(13, 93, 73, 0.08);
+  --border-medium: rgba(95, 94, 90, 0.2);
 
   /* Font Configurations */
   --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
@@ -67,9 +67,9 @@
   --radius-full: 9999px;
 
   /* Elevation Shadows */
-  --shadow-sm: 0 2px 8px rgba(95, 94, 90, 0.04);
-  --shadow-md: 0 8px 24px rgba(95, 94, 90, 0.06);
-  --shadow-lg: 0 16px 40px rgba(95, 94, 90, 0.09);
+  --shadow-sm: 0 2px 8px rgba(95, 94, 90, 0.06);
+  --shadow-md: 0 8px 24px rgba(95, 94, 90, 0.10);
+  --shadow-lg: 0 16px 40px rgba(95, 94, 90, 0.14);
   --shadow-primary: 0 12px 30px hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.12);
   --shadow-secondary: 0 12px 30px hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.12);
 

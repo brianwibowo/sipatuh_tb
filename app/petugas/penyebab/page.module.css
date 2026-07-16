@@ -19,10 +19,8 @@
 }
 
 .breadcrumbs {
-  position: absolute;
-  top: 2rem;
-  right: 2rem;
-  z-index: 10;
+  margin-bottom: var(--space-lg);
+  display: flex;
 }
 
 .backLink {
@@ -249,7 +247,7 @@
 
 .cardDesc {
   font-size: 0.95rem;
-  color: var(--text-muted);
+  color: var(--text-main);
   line-height: 1.6;
   margin-bottom: var(--space-lg);
   flex: 1;

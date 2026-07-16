@@ -87,28 +87,28 @@ export default function PetugasInfoPage() {
 
   return (
     <div className={styles.wrapper}>
-      {/* Top Banner Area */}
-      <section className={styles.heroSection} style={{ padding: "4rem 2rem 2rem", borderBottom: "1px solid rgba(15, 110, 86, 0.08)", position: "relative" }}>
-        <div className={styles.container} style={{ position: "relative", maxWidth: "1200px", margin: "0 auto", width: "100%" }}>
-          <div style={{ position: "absolute", top: "-2rem", right: "0", zIndex: 10 }}>
-            <Link
-              href="/"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                backgroundColor: "#ffffff",
-                color: "#5F5E5A",
-                border: "1px solid rgba(95, 94, 90, 0.2)",
-                padding: "8px 16px",
-                borderRadius: "12px",
-                fontWeight: 600,
-                fontSize: "0.85rem",
-                boxShadow: "0 2px 8px rgba(95, 94, 90, 0.04)",
-                transition: "all 0.2s ease",
-                textDecoration: "none"
-              }}
+      {/* Edit Mode Sticky Banner */}
+      {isEditing && (
+        <div className={styles.editorBanner}>
+          <div className={styles.editorBannerContent}>
+            <span className={styles.editorBannerText}>
+              🔧 <strong>Mode Edit Aktif</strong> — Klik tombol edit pada kartu konten untuk mengubah teks artikel ilmiah.
+            </span>
+            <button 
+              onClick={() => setIsEditing(false)}
+              className={styles.editorBannerClose}
             >
+              Selesai
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Top Banner Area */}
+      <section className={styles.heroSection}>
+        <div className={styles.container}>
+          <div className={styles.breadcrumbs}>
+            <Link href="/" className={styles.backLink}>
               <svg
                 width="16"
                 height="16"
@@ -116,6 +116,7 @@ export default function PetugasInfoPage() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
+                className={styles.backIcon}
               >
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>
@@ -124,32 +125,22 @@ export default function PetugasInfoPage() {
             </Link>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "1.3fr 0.7fr", alignItems: "center", gap: "3rem", width: "100%" }}>
-            <div className={styles.headerGroup} style={{ maxWidth: "800px" }}>
-              <span className={styles.sub} style={{ fontSize: "0.85rem", fontWeight: 700, textTransform: "uppercase", color: "#0F6E56", letterSpacing: "0.05em", marginBottom: "0.5rem", display: "block" }}>
-                Informasi Umum
-              </span>
-              <h1 className={styles.mainTitle} style={{ fontSize: "2.5rem", fontWeight: 700, color: "#0A5A45", marginBottom: "1rem", letterSpacing: "-0.02em" }}>
-                Informasi Kepatuhan TB
-              </h1>
-              <p className={styles.intro} style={{ fontSize: "1.15rem", color: "#5F5E5A", lineHeight: 1.7 }}>
+          <div className={styles.heroGrid}>
+            <div className={styles.headerGroup}>
+              <span className={styles.sub}>Informasi Umum</span>
+              <h1 className={styles.mainTitle}>Informasi Kepatuhan TB</h1>
+              <p className={styles.intro}>
                 Berikut adalah materi edukasi medis resmi mengenai Tuberkulosis (TB),
                 gejala, rejimen pengobatan, dan pencegahannya.
               </p>
             </div>
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+            <div className={styles.heroImageWrapper}>
               <Image
                 src="/images/lungs-illustration.png"
                 alt="Lungs Illustration"
-                width={240}
-                height={240}
-                style={{
-                  maxWidth: "100%",
-                  height: "auto",
-                  borderRadius: "16px",
-                  boxShadow: "0 8px 24px rgba(95, 94, 90, 0.06)",
-                  border: "1px solid rgba(255, 255, 255, 0.4)"
-                }}
+                width={280}
+                height={280}
+                className={styles.heroImage}
                 priority
               />
             </div>
@@ -169,13 +160,19 @@ export default function PetugasInfoPage() {
                   <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
                 </div>
               ) : (
-                contents.map((content) => {
+                contents.map((content, idx) => {
                   const isCurrentEditing = editingId === content.id;
 
                   return (
-                    <article key={content.id} className={styles.articleCard} id={content.section_key}>
+                    <article 
+                      key={content.id} 
+                      className={`${styles.articleCard} ${isEditing ? styles.editableCard : ""}`} 
+                      id={content.section_key}
+                    >
+                      {/* Rich Edit Header inside card instead of cheap floating button */}
                       {isEditing && !isCurrentEditing && (
-                        <div className={styles.editBadge}>
+                        <div className={styles.cardEditHeader}>
+                          <span className={styles.sectionNumber}>Bagian {idx + 1}</span>
                           <button
                             onClick={() => handleStartEdit(content)}
                             className={styles.editBtn}
@@ -187,46 +184,64 @@ export default function PetugasInfoPage() {
 
                       {isCurrentEditing ? (
                         <div className={styles.editor}>
-                          <input
-                            type="text"
-                            value={editTitle}
-                            onChange={(e) => setEditTitle(e.target.value)}
-                            className={styles.editInput}
-                            disabled={saveLoading}
-                          />
-                          <textarea
-                            value={editBody}
-                            onChange={(e) => setEditBody(e.target.value)}
-                            className={styles.editTextarea}
-                            rows={10}
-                            disabled={saveLoading}
-                          />
-                          {saveError && <span className={styles.error}>{saveError}</span>}
+                          <h3 className={styles.editorTitle}>Mengedit Bagian Konten</h3>
+                          
+                          <div className={styles.inputGroup}>
+                            <label className={styles.label}>Judul Bagian</label>
+                            <input
+                              type="text"
+                              value={editTitle}
+                              onChange={(e) => setEditTitle(e.target.value)}
+                              className={styles.editInput}
+                              placeholder="Judul Seksi Konten"
+                              disabled={saveLoading}
+                            />
+                          </div>
+
+                          <div className={styles.inputGroup}>
+                            <label className={styles.label}>Isi Konten (Mendukung tag HTML)</label>
+                            <textarea
+                              value={editBody}
+                              onChange={(e) => setEditBody(e.target.value)}
+                              className={styles.editTextarea}
+                              rows={12}
+                              placeholder="Gunakan format HTML seperti <p>, <h3>, <ul>, <li> untuk merapikan tulisan."
+                              disabled={saveLoading}
+                            />
+                            <p className={styles.editorHelper}>
+                              💡 Tip: Gunakan <code>&lt;p&gt;</code> untuk paragraf baru dan <code>&lt;strong&gt;teks&lt;/strong&gt;</code> untuk menebalkan teks penting.
+                            </p>
+                          </div>
+
+                          {saveError && <div className={styles.errorContainer}>⚠️ {saveError}</div>}
+                          
                           <div className={styles.editorActions}>
                             <button
                               onClick={() => setEditingId(null)}
                               className={styles.cancelBtn}
                               disabled={saveLoading}
                             >
-                              Batal
+                              ✕ Batal
                             </button>
                             <button
                               onClick={() => handleSave(content.id)}
                               className={styles.saveBtn}
                               disabled={saveLoading}
                             >
-                              {saveLoading ? "Menyimpan..." : "Simpan Perubahan"}
+                              {saveLoading ? "⏳ Menyimpan..." : "✓ Simpan Perubahan"}
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <>
-                          <h2 className={styles.articleTitle}>{content.title}</h2>
+                        <div className={styles.cardContent}>
+                          <h2 className={styles.articleTitle}>
+                            <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
+                          </h2>
                           <div
                             className={styles.articleBody}
                             dangerouslySetInnerHTML={{ __html: content.body }}
                           />
-                        </>
+                        </div>
                       )}
                     </article>
                   );
@@ -241,16 +256,16 @@ export default function PetugasInfoPage() {
                   <h3 className={styles.sidebarTitle}>Navigasi Info</h3>
                   <div className={styles.sidebarNav}>
                     <a href="#penjelasan_umum" className={styles.navLink}>
-                      Apa itu TB?
+                      <span className={styles.navIcon}>•</span> Apa itu TB?
                     </a>
                     <a href="#gejala" className={styles.navLink}>
-                      Gejala TB
+                      <span className={styles.navIcon}>•</span> Gejala TB
                     </a>
                     <a href="#pengobatan" className={styles.navLink}>
-                      Skema Pengobatan OAT
+                      <span className={styles.navIcon}>•</span> Skema Pengobatan OAT
                     </a>
                     <a href="#pencegahan" className={styles.navLink}>
-                      Pencegahan Penularan
+                      <span className={styles.navIcon}>•</span> Pencegahan Penularan
                     </a>
                   </div>
                 </div>
@@ -267,7 +282,7 @@ export default function PetugasInfoPage() {
                       viewBox="0 0 24 24"
                       fill="none"
                       stroke="currentColor"
-                      strokeWidth="2"
+                      strokeWidth="2.5"
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       className={styles.ctaIcon}

@@ -178,26 +178,9 @@ export default function PetugasPenyebabPage() {
     <div className={styles.wrapper}>
       {/* Page Header */}
       <section className={styles.headerSection}>
-        <div className={styles.container} style={{ position: "relative" }}>
-          <div style={{ position: "absolute", top: "0", right: "0", zIndex: 10 }}>
-            <Link
-              href="/petugas"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: "6px",
-                backgroundColor: "#ffffff",
-                color: "#5F5E5A",
-                border: "1px solid rgba(95, 94, 90, 0.2)",
-                padding: "8px 16px",
-                borderRadius: "12px",
-                fontWeight: 600,
-                fontSize: "0.85rem",
-                boxShadow: "0 2px 8px rgba(95, 94, 90, 0.04)",
-                transition: "all 0.2s ease",
-                textDecoration: "none"
-              }}
-            >
+        <div className={styles.container}>
+          <div className={styles.breadcrumbs}>
+            <Link href="/petugas" className={styles.backLink}>
               <svg
                 width="16"
                 height="16"
@@ -205,6 +188,7 @@ export default function PetugasPenyebabPage() {
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2.5"
+                className={styles.backIcon}
               >
                 <line x1="19" y1="12" x2="5" y2="12"></line>
                 <polyline points="12 19 5 12 12 5"></polyline>

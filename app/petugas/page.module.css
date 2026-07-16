@@ -122,66 +122,76 @@
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-light);
+  border-left: 5px solid var(--primary); /* Left border accent */
   position: relative;
   transition: var(--transition-base);
 }
 
 .articleCard:hover {
   box-shadow: var(--shadow-md);
-  border-color: rgba(15, 110, 86, 0.15);
+  border-color: rgba(13, 93, 73, 0.15);
+  border-left-color: var(--primary-light);
+}
+
+.editableCard {
+  border-left-color: var(--secondary);
+  border-style: dashed;
+}
+
+.cardEditHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-md);
+}
+
+.sectionNumber {
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.editBtn {
+  background-color: var(--secondary-glow);
+  color: var(--secondary);
+  border: 1px solid rgba(20, 79, 138, 0.2);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 700;
+  transition: var(--transition-fast);
+}
+
+.editBtn:hover {
+  background-color: var(--secondary);
+  color: #ffffff;
+}
+
+.titleIndex {
+  color: var(--primary-light);
+  margin-right: 0.5rem;
+  font-weight: 500;
 }
 
 .articleTitle {
-  font-size: 1.6rem;
+  font-size: 1.75rem;
   color: var(--primary-dark);
   margin-bottom: var(--space-md);
-  border-bottom: 2px solid var(--bg-muted);
+  border-bottom: 2.5px solid var(--border-light);
   padding-bottom: var(--space-xs);
 }
 
 .articleBody {
   color: var(--text-main);
-  font-size: 1.05rem;
-  line-height: 1.8;
-}
-
-.articleBody h3 {
-  font-size: 1.25rem;
-  margin: var(--space-md) 0 var(--space-xs);
-  color: var(--primary);
-}
-
-.articleBody ul, .articleBody ol {
-  margin-bottom: var(--space-md);
-  padding-left: 1.5rem;
-}
-
-.articleBody li {
-  margin-bottom: var(--space-xs);
-}
-
-.editBadge {
-  position: absolute;
-  top: var(--space-md);
-  right: var(--space-md);
-  z-index: 10;
-}
-
-.editBtn {
-  background-color: var(--primary-glow);
-  color: var(--primary-dark);
-  border: 1px solid rgba(15, 110, 86, 0.2);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  transition: var(--transition-fast);
-}
-
-.editBtn:hover {
-  background-color: var(--primary);
-  color: #ffffff;
+  font-size: 1.1rem;
+  line-height: 1.85;
 }
 
 /* Sidebar */
@@ -277,68 +287,174 @@
   height: 18px;
 }
 
+/* Editor banner styling */
+.editorBanner {
+  position: sticky;
+  top: 80px; /* Right under the navigation bar */
+  left: 0;
+  width: 100%;
+  background: linear-gradient(90deg, var(--secondary) 0%, var(--secondary-light) 100%);
+  color: #ffffff;
+  z-index: 95;
+  box-shadow: var(--shadow-sm);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.editorBannerContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.editorBannerText {
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.editorBannerClose {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.editorBannerClose:hover {
+  background-color: #ffffff;
+  color: var(--secondary-light);
+}
+
+/* Sidebar Nav Updates */
+.navIcon {
+  color: var(--primary);
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+
 /* Inline Editor Styling */
 .editor {
   display: flex;
   flex-direction: column;
   gap: var(--space-md);
   width: 100%;
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+}
+
+.editorTitle {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--secondary);
+  border-bottom: 2px solid var(--border-medium);
+  padding-bottom: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
 }
 
 .editInput {
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-medium);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--primary-dark);
+  background-color: #ffffff;
   outline: none;
+  transition: var(--transition-fast);
 }
 
 .editInput:focus {
-  border-color: var(--primary);
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--secondary-glow);
 }
 
 .editTextarea {
   width: 100%;
-  padding: 0.85rem;
+  padding: 0.85rem 1rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-medium);
   font-size: 1.05rem;
   line-height: 1.8;
   color: var(--text-main);
+  background-color: #ffffff;
   outline: none;
   resize: vertical;
+  transition: var(--transition-fast);
 }
 
 .editTextarea:focus {
-  border-color: var(--primary);
+  border-color: var(--secondary);
+  box-shadow: 0 0 0 3px var(--secondary-glow);
+}
+
+.editorHelper {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: var(--space-xs);
+}
+
+.errorContainer {
+  background-color: var(--danger-glow);
+  color: var(--danger);
+  border: 1px solid rgba(163, 45, 45, 0.2);
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .editorActions {
   display: flex;
   justify-content: flex-end;
   gap: var(--space-sm);
+  margin-top: var(--space-sm);
 }
 
 .saveBtn, .cancelBtn {
-  padding: 0.65rem 1.25rem;
+  padding: 0.75rem 1.5rem;
   border-radius: var(--radius-md);
-  font-weight: 600;
+  font-weight: 700;
   font-size: 0.9rem;
   cursor: pointer;
   transition: var(--transition-fast);
 }
 
 .saveBtn {
-  background-color: var(--primary);
+  background-color: var(--secondary);
   color: #ffffff;
   border: none;
+  box-shadow: var(--shadow-sm);
 }
 
 .saveBtn:hover {
-  background-color: var(--primary-light);
+  background-color: var(--secondary-light);
+  transform: translateY(-1px);
 }
 
 .cancelBtn {

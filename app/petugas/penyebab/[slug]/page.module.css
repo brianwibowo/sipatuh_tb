@@ -19,15 +19,22 @@
   display: inline-flex;
   align-items: center;
   gap: var(--space-xs);
+  background-color: var(--bg-surface);
   color: var(--text-muted);
+  border: 1px solid var(--border-medium);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-md);
   font-weight: 600;
-  font-size: 0.95rem;
+  font-size: 0.85rem;
   transition: var(--transition-fast);
+  box-shadow: var(--shadow-sm);
 }
 
 .backLink:hover {
+  background-color: var(--primary-glow);
+  border-color: var(--primary);
   color: var(--primary-dark);
-  transform: translateX(-4px);
+  transform: translateY(-1px);
 }
 
 .backIcon {

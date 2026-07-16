@@ -108,12 +108,12 @@
   display: grid;
   grid-template-columns: 1.6fr 0.9fr;
   gap: var(--space-3xl);
-  align-items: start;
 }
 
 .topRowMain {
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .bottomCards {
@@ -133,6 +133,22 @@
   position: relative;
   transition: var(--transition-base);
   scroll-margin-top: 100px;
+}
+
+.card1Top {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border-bottom: none !important;
+  margin-bottom: 0 !important;
+  height: 100%;
+}
+
+.card1Bottom {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-top: none !important;
+  margin-top: calc(-1 * var(--space-2xl) - 2px) !important; /* pull up to overlap with top card gap and sit seamlessly */
+  padding-top: 0 !important;
 }
 
 .articleCard:hover {

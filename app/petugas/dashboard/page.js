@@ -530,12 +530,14 @@ export default function PetugasDashboardPage() {
         </div>
 
         <nav className={styles.sidebarNav}>
+          {/* 
           <button 
             onClick={() => { setActiveTab("materi"); setEditingMateriId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "materi" ? styles.sidebarBtnActive : ""}`}
           >
             📄 Pengantar Materi (L1)
           </button>
+          */}
           <button 
             onClick={() => { setActiveTab("kategori"); setEditingKategoriId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "kategori" ? styles.sidebarBtnActive : ""}`}

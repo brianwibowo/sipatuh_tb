@@ -95,6 +95,68 @@ export default function PetugasInfoPage() {
     }
   };
 
+  const splitCard1Content = (content) => {
+    try {
+      const parsed = JSON.parse(content.body);
+      return {
+        isJson: true,
+        top: (
+          <div className={styles.articleBody}>
+            {parsed.description && <p className={styles.leadText}>{parsed.description}</p>}
+          </div>
+        ),
+        bottom: (
+          <div className={styles.articleBody}>
+            {parsed.stats && (
+              <div className={styles.statGrid}>
+                {parsed.stats.map((stat, sIdx) => (
+                  <div key={sIdx} className={styles.statCard}>
+                    <div className={styles.statNumber}>{stat.number}</div>
+                    <div className={styles.statLabel}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            )}
+            {parsed.quote && (
+              <div className={styles.quoteWrapper}>
+                <span className={styles.quoteQuote}>"</span>
+                <blockquote className={styles.premiumQuote}>{parsed.quote}</blockquote>
+              </div>
+            )}
+            {parsed.patogenesis && (
+              <div className={styles.patogenesisBox}>
+                <h4 className={styles.boxTitle}>Patogenesis & Penularan</h4>
+                <p>{parsed.patogenesis}</p>
+              </div>
+            )}
+          </div>
+        )
+      };
+    } catch (e) {
+      const html = content.body;
+      let topHtml = html;
+      let bottomHtml = "";
+      
+      const splitIndex = html.indexOf('<div class="statGrid">');
+      if (splitIndex !== -1) {
+        topHtml = html.substring(0, splitIndex);
+        bottomHtml = html.substring(splitIndex);
+      } else {
+        const blockquoteIndex = html.indexOf('<blockquote>');
+        if (blockquoteIndex !== -1) {
+          topHtml = html.substring(0, blockquoteIndex);
+          bottomHtml = html.substring(blockquoteIndex);
+        }
+      }
+      
+      return {
+        isJson: false,
+        top: <div className={styles.articleBody} dangerouslySetInnerHTML={{ __html: topHtml }} />,
+        bottom: <div className={styles.articleBody} dangerouslySetInnerHTML={{ __html: bottomHtml }} />
+      };
+    }
+  };
+
   return (
     <div className={styles.wrapper}>
       {/* Page Header */}
@@ -150,36 +212,28 @@ export default function PetugasInfoPage() {
         <div className={styles.container}>
           {/* Top Row: Card 1 + Sidebar (L-shape) */}
           <div className={styles.topRow}>
-            {/* First card only */}
+            {/* First card only (Top half of L-shape) */}
             <div className={styles.topRowMain}>
               {loading ? (
                 <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
               ) : categories.length > 0 && (() => {
                 const cat = categories[0];
                 const matchingContent = contents.find(c => c.section_key === cat.key);
+                const splitContent = matchingContent ? splitCard1Content(matchingContent) : null;
+                
                 return (
-                  <article className={styles.articleCard} id={cat.key}>
+                  <article className={`${styles.articleCard} ${styles.card1Top}`} id={cat.key}>
                     <div className={styles.cardContent}>
                       <h2 className={styles.articleTitle}>
                         <span className={styles.titleIndex}>01.</span> {cat.title}
                       </h2>
-                      {matchingContent ? (
-                        renderCardContent(matchingContent)
+                      {splitContent ? (
+                        splitContent.top
                       ) : (
                         <div className={styles.articleBody}>
                           <p className={styles.leadText}>{cat.description}</p>
                         </div>
                       )}
-
-                      <div className={styles.viewArticlesRow}>
-                        <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
-                          <span>Buka Kumpulan Artikel {cat.title}</span>
-                          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
-                            <line x1="5" y1="12" x2="19" y2="12"></line>
-                            <polyline points="12 5 19 12 12 19"></polyline>
-                          </svg>
-                        </Link>
-                      </div>
                     </div>
                   </article>
                 );
@@ -203,8 +257,35 @@ export default function PetugasInfoPage() {
             </aside>
           </div>
 
-          {/* Bottom Section: Cards 2-4 full width */}
+          {/* Bottom half of L-shape (Card 1 Bottom) and other cards */}
           <div className={styles.bottomCards}>
+            {/* Card 1 Bottom (Seamless bottom part of L-shape spanning full width) */}
+            {!loading && categories.length > 0 && (() => {
+              const cat = categories[0];
+              const matchingContent = contents.find(c => c.section_key === cat.key);
+              const splitContent = matchingContent ? splitCard1Content(matchingContent) : null;
+              if (!splitContent) return null;
+              
+              return (
+                <article className={`${styles.articleCard} ${styles.card1Bottom}`}>
+                  <div className={styles.cardContent}>
+                    {splitContent.bottom}
+
+                    <div className={styles.viewArticlesRow} style={{ marginTop: "2rem" }}>
+                      <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
+                        <span>Buka Kumpulan Artikel {cat.title}</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
+                        </svg>
+                      </Link>
+                    </div>
+                  </div>
+                </article>
+              );
+            })()}
+
+            {/* Other cards (Card 2, 3, 4) spanning full width */}
             {!loading && categories.slice(1).map((cat, idx) => {
               const matchingContent = contents.find(c => c.section_key === cat.key);
               return (

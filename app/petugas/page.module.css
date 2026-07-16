@@ -499,3 +499,100 @@
     display: none;
   }
 }
+
+/* Custom markup rendering styling within articleBody for highly professional, non-mainstream pages */
+.articleBody table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-md) 0 var(--space-lg);
+  font-size: 0.95rem;
+  box-shadow: var(--shadow-sm);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border-medium);
+}
+
+.articleBody th {
+  background-color: var(--primary);
+  color: #ffffff;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+}
+
+.articleBody td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--bg-muted);
+  background-color: var(--bg-surface);
+  color: var(--text-main);
+}
+
+.articleBody tr:nth-child(even) td {
+  background-color: var(--bg-muted-light);
+}
+
+.articleBody blockquote {
+  border-left: 4px solid var(--secondary);
+  background-color: var(--secondary-glow);
+  padding: var(--space-sm) var(--space-md);
+  margin: var(--space-md) 0 var(--space-lg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-style: italic;
+  color: var(--text-main);
+}
+
+.articleBody .statGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--space-md);
+  margin: var(--space-lg) 0;
+}
+
+.articleBody .statCard {
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.articleBody .statNumber {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  line-height: 1.2;
+}
+
+.articleBody .statLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+}
+
+.articleBody .badge {
+  display: inline-block;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.articleBody .badgePrimary {
+  background-color: var(--primary-glow);
+  color: var(--primary);
+}
+
+.articleBody .badgeSecondary {
+  background-color: var(--secondary-glow);
+  color: var(--secondary);
+}
+
+.articleBody .badgeDanger {
+  background-color: var(--danger-glow);
+  color: var(--danger);
+}

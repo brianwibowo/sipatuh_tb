@@ -43,6 +43,70 @@ export default function PetugasPenyebabPage() {
     return "/images/lungs-illustration.png";
   };
 
+  const getCardDetails = (slug) => {
+    if (slug.includes("bakteri")) {
+      return {
+        type: "Biologis",
+        risk: "Sangat Tinggi",
+        riskClass: styles.badgeDanger,
+        target: "Paru-paru & Ekstra-paru",
+        transmission: "Inhalasi Nuklei Droplet"
+      };
+    }
+    if (slug.includes("droplet") || slug.includes("penularan")) {
+      return {
+        type: "Transmisi",
+        risk: "Sangat Cepat",
+        riskClass: styles.badgeDanger,
+        target: "Kontak Udara Terbuka",
+        transmission: "Bersin, Batuk, Berbicara"
+      };
+    }
+    if (slug.includes("imun") || slug.includes("kekebalan")) {
+      return {
+        type: "Fisiologis",
+        risk: "Tinggi",
+        riskClass: styles.badgeWarning,
+        target: "Rentan Reaktivasi",
+        transmission: "Kondisi Komorbid (HIV, DM)"
+      };
+    }
+    if (slug.includes("lingkungan") || slug.includes("padat")) {
+      return {
+        type: "Lingkungan",
+        risk: "Tinggi",
+        riskClass: styles.badgeWarning,
+        target: "Kluster Rumah Tangga",
+        transmission: "Sirkulasi & Sinar UV Buruk"
+      };
+    }
+    if (slug.includes("kontak") || slug.includes("erat")) {
+      return {
+        type: "Sosial",
+        risk: "Sangat Tinggi",
+        riskClass: styles.badgeDanger,
+        target: "Keluarga & Rekan Kerja",
+        transmission: "Interaksi Intens Harian"
+      };
+    }
+    if (slug.includes("rokok") || slug.includes("merokok")) {
+      return {
+        type: "Perilaku",
+        risk: "Sedang-Tinggi",
+        riskClass: styles.badgeWarning,
+        target: "Kerusakan Silia Paru",
+        transmission: "Paparan Asap Kronis"
+      };
+    }
+    return {
+      type: "Faktor Risiko",
+      risk: "Bervariasi",
+      riskClass: styles.badgeWarning,
+      target: "Sistemik",
+      transmission: "Multi-faktor"
+    };
+  };
+
   const fetchPenyebab = async () => {
     try {
       const res = await fetch("/api/penyebab");
@@ -354,6 +418,8 @@ export default function PetugasPenyebabPage() {
                   );
                 }
 
+                const details = getCardDetails(card.slug);
+
                 return (
                   <div key={card.id} className={styles.card}>
                     <div className={styles.cardImageContainer}>
@@ -367,12 +433,28 @@ export default function PetugasPenyebabPage() {
                     </div>
 
                     <div className={styles.cardBody}>
+                      <div className={styles.cardHeaderRow}>
+                        <span className={styles.typeBadge}>{details.type}</span>
+                        <span className={`${styles.riskBadge} ${details.riskClass}`}>Risiko: {details.risk}</span>
+                      </div>
+
                       <h2 className={styles.cardTitle}>{card.title}</h2>
                       <p className={styles.cardDesc}>{card.description}</p>
+
+                      <div className={styles.cardMeta}>
+                        <div className={styles.metaItem}>
+                          <span className={styles.metaLabel}>Fokus Dampak:</span>
+                          <span className={styles.metaValue}>{details.target}</span>
+                        </div>
+                        <div className={styles.metaItem}>
+                          <span className={styles.metaLabel}>Mekanisme:</span>
+                          <span className={styles.metaValue}>{details.transmission}</span>
+                        </div>
+                      </div>
                       
                       <div className={styles.cardFooter}>
                         <Link href={`/petugas/penyebab/${card.slug}`} className={styles.readMoreLink}>
-                          <span>Baca Detail</span>
+                          <span>Baca Detail Artikel</span>
                           <svg
                             viewBox="0 0 24 24"
                             fill="none"

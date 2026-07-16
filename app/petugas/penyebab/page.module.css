@@ -326,3 +326,71 @@
     grid-template-columns: 1fr;
   }
 }
+
+.cardHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  flex-wrap: wrap;
+  gap: var(--space-xs);
+}
+
+.typeBadge {
+  background-color: var(--primary-glow);
+  color: var(--primary);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.riskBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.25rem 0.5rem;
+  border-radius: var(--radius-sm);
+  letter-spacing: 0.05em;
+}
+
+.badgeDanger {
+  background-color: var(--danger-glow);
+  color: var(--danger);
+}
+
+.badgeWarning {
+  background-color: hsla(38, 76%, 50%, 0.15);
+  color: hsl(38, 76%, 35%);
+}
+
+.cardMeta {
+  background-color: var(--bg-muted-light);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: 0.75rem;
+  margin-bottom: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.metaItem {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  gap: var(--space-sm);
+}
+
+.metaLabel {
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.metaValue {
+  color: var(--text-main);
+  font-weight: 700;
+  text-align: right;
+}

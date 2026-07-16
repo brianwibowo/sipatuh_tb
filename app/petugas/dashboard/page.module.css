@@ -523,3 +523,15 @@
     padding: var(--space-md);
   }
 }
+
+.rowCategoryBadge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--primary);
+  background-color: var(--primary-glow);
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--radius-sm);
+  margin-top: 0.25rem;
+  text-transform: uppercase;
+}

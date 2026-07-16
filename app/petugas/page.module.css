@@ -1224,3 +1224,41 @@
   transform: translateX(4px);
 }
 
+.viewArticlesRow {
+  margin-top: var(--space-xl);
+  display: flex;
+  justify-content: flex-start;
+}
+
+.viewCategoryLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.viewCategoryLink:hover {
+  background-color: var(--primary-light);
+  transform: translateY(-1.5px);
+  box-shadow: var(--shadow-md);
+}
+
+.viewCategoryLink .arrowIcon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  transition: var(--transition-fast);
+}
+
+.viewCategoryLink:hover .arrowIcon {
+  transform: translateX(4px);
+}
+

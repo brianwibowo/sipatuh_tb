@@ -211,7 +211,95 @@
   line-height: 1.6;
 }
 
+/* Layout and columns */
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: var(--space-xl);
+  align-items: start;
+}
+
+.articles {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+/* Sidebar styling matching Laman 1 exactly */
+.sidebar {
+  display: block;
+}
+
+.sidebarSticky {
+  position: sticky;
+  top: 100px; /* Jarak dari atas navbar */
+}
+
+.sidebarCard {
+  background-color: var(--bg-surface);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebarTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--primary-dark);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 2px solid var(--bg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.navLink {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+.navLink:hover {
+  background-color: var(--bg-muted-light);
+  color: var(--primary-dark);
+  transform: translateX(2px);
+}
+
+.activeNavLink {
+  background-color: var(--primary-glow) !important;
+  color: var(--primary-dark) !important;
+  border-left: 4px solid var(--primary);
+  font-weight: 700;
+}
+
+.navIcon {
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
 @media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    order: -1; /* Sidebar links on top in mobile */
+  }
+
   .headerSection {
     padding: var(--space-xl) 1rem var(--space-lg);
   }

@@ -30,8 +30,21 @@ export default function PetugasDashboardPage() {
   const [editPenyebabTitle, setEditPenyebabTitle] = useState("");
   const [editPenyebabDesc, setEditPenyebabDesc] = useState("");
   const [editPenyebabImg, setEditPenyebabImg] = useState("");
+  const [editPenyebabKategoriId, setEditPenyebabKategoriId] = useState("");
+  const [editPenyebabBody, setEditPenyebabBody] = useState("");
   const [penyebabSaveLoading, setPenyebabSaveLoading] = useState(false);
   const [penyebabSaveError, setPenyebabSaveError] = useState("");
+
+  // Kategori states
+  const [kategoriList, setKategoriList] = useState([]);
+  const [kategoriLoading, setKategoriLoading] = useState(false);
+  const [editingKategoriId, setEditingKategoriId] = useState(null); // null = not editing, "new" = adding, UUID = editing
+  const [editKategoriTitle, setEditKategoriTitle] = useState("");
+  const [editKategoriSubtitle, setEditKategoriSubtitle] = useState("");
+  const [editKategoriDesc, setEditKategoriDesc] = useState("");
+  const [editKategoriOrder, setEditKategoriOrder] = useState(1);
+  const [kategoriSaveLoading, setKategoriSaveLoading] = useState(false);
+  const [kategoriSaveError, setKategoriSaveError] = useState("");
 
   // Laman Pasien: Video states
   const [videoList, setVideoList] = useState([]);
@@ -72,6 +85,21 @@ export default function PetugasDashboardPage() {
     }
   };
 
+  const fetchKategori = async () => {
+    setKategoriLoading(true);
+    try {
+      const res = await fetch("/api/kategori");
+      const data = await res.json();
+      if (res.ok && data.kategori) {
+        setKategoriList(data.kategori);
+      }
+    } catch (err) {
+      console.error("Gagal mengambil kategori", err);
+    } finally {
+      setKategoriLoading(false);
+    }
+  };
+
   const fetchVideos = async () => {
     setVideoLoading(true);
     try {
@@ -91,6 +119,7 @@ export default function PetugasDashboardPage() {
     if (isAdmin) {
       fetchMateri();
       fetchPenyebab();
+      fetchKategori();
       fetchVideos();
     }
   }, [isAdmin]);
@@ -220,12 +249,14 @@ export default function PetugasDashboardPage() {
     }
   };
 
-  // CRUD: Laman 2 - Penyebab TB
+  // CRUD: Laman 2 - Penyebab TB (Artikel & Card)
   const handleStartEditPenyebab = (card) => {
     setEditingPenyebabId(card.id);
     setEditPenyebabTitle(card.title);
     setEditPenyebabDesc(card.description || "");
     setEditPenyebabImg(card.image_url || "");
+    setEditPenyebabKategoriId(card.kategori_id || "");
+    setEditPenyebabBody(card.article_body || "");
     setPenyebabSaveError("");
   };
 
@@ -234,6 +265,8 @@ export default function PetugasDashboardPage() {
     setEditPenyebabTitle("");
     setEditPenyebabDesc("");
     setEditPenyebabImg("");
+    setEditPenyebabKategoriId(kategoriList[0]?.id || "");
+    setEditPenyebabBody("");
     setPenyebabSaveError("");
   };
 
@@ -241,6 +274,10 @@ export default function PetugasDashboardPage() {
     e.preventDefault();
     if (!editPenyebabTitle.trim()) {
       setPenyebabSaveError("Nama penyebab wajib diisi");
+      return;
+    }
+    if (!editPenyebabKategoriId) {
+      setPenyebabSaveError("Kategori wajib dipilih");
       return;
     }
 
@@ -252,6 +289,8 @@ export default function PetugasDashboardPage() {
       title: editPenyebabTitle,
       description: editPenyebabDesc,
       image_url: editPenyebabImg || "/images/lungs-illustration.png",
+      kategori_id: editPenyebabKategoriId,
+      article_body: editPenyebabBody
     };
 
     if (editingPenyebabId !== "new") {
@@ -277,6 +316,84 @@ export default function PetugasDashboardPage() {
       setPenyebabSaveError("Terjadi kesalahan jaringan.");
     } finally {
       setPenyebabSaveLoading(false);
+    }
+  };
+
+  // CRUD: Kategori Artikel
+  const handleStartEditKategori = (cat) => {
+    setEditingKategoriId(cat.id);
+    setEditKategoriTitle(cat.title);
+    setEditKategoriSubtitle(cat.subtitle || "");
+    setEditKategoriDesc(cat.description || "");
+    setEditKategoriOrder(cat.display_order || 1);
+    setKategoriSaveError("");
+  };
+
+  const handleStartAddKategori = () => {
+    setEditingKategoriId("new");
+    setEditKategoriTitle("");
+    setEditKategoriSubtitle("");
+    setEditKategoriDesc("");
+    setEditKategoriOrder(kategoriList.length + 1);
+    setKategoriSaveError("");
+  };
+
+  const handleSaveKategori = async (e) => {
+    e.preventDefault();
+    if (!editKategoriTitle.trim()) {
+      setKategoriSaveError("Nama kategori wajib diisi");
+      return;
+    }
+
+    setKategoriSaveLoading(true);
+    setKategoriSaveError("");
+
+    const method = editingKategoriId === "new" ? "POST" : "PUT";
+    const payload = {
+      title: editKategoriTitle,
+      subtitle: editKategoriSubtitle,
+      description: editKategoriDesc,
+      display_order: parseInt(editKategoriOrder) || 1
+    };
+
+    if (editingKategoriId !== "new") {
+      payload.id = editingKategoriId;
+    }
+
+    try {
+      const res = await fetch("/api/kategori", {
+        method,
+        headers: getAdminHeaders(),
+        body: JSON.stringify(payload),
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setEditingKategoriId(null);
+        fetchKategori();
+      } else {
+        setKategoriSaveError(data.error || "Gagal menyimpan kategori.");
+      }
+    } catch (err) {
+      setKategoriSaveError("Terjadi kesalahan jaringan.");
+    } finally {
+      setKategoriSaveLoading(false);
+    }
+  };
+
+  const handleDeleteKategori = async (id) => {
+    if (!confirm("Apakah Anda yakin ingin menghapus kategori ini? Menghapus kategori akan merusak tautan artikel di dalamnya.")) return;
+    try {
+      const res = await fetch(`/api/kategori?id=${id}`, {
+        method: "DELETE",
+        headers: getAdminHeaders(),
+      });
+      if (res.ok) {
+        fetchKategori();
+      }
+    } catch (err) {
+      console.error("Gagal menghapus kategori", err);
     }
   };
 
@@ -417,13 +534,19 @@ export default function PetugasDashboardPage() {
             onClick={() => { setActiveTab("materi"); setEditingMateriId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "materi" ? styles.sidebarBtnActive : ""}`}
           >
-            📄 Materi Edukasi (L1)
+            📄 Pengantar Materi (L1)
+          </button>
+          <button 
+            onClick={() => { setActiveTab("kategori"); setEditingKategoriId(null); }}
+            className={`${styles.sidebarBtn} ${activeTab === "kategori" ? styles.sidebarBtnActive : ""}`}
+          >
+            📂 Kategori Navigasi
           </button>
           <button 
             onClick={() => { setActiveTab("penyebab"); setEditingPenyebabId(null); }}
             className={`${styles.sidebarBtn} ${activeTab === "penyebab" ? styles.sidebarBtnActive : ""}`}
           >
-            🦠 Penyebab & Penularan (L2)
+            🦠 Kartu Artikel & Blog
           </button>
           <button 
             onClick={() => { setActiveTab("video"); }}
@@ -760,12 +883,12 @@ export default function PetugasDashboardPage() {
           <div className={styles.tabContent}>
             <div className={styles.tabHeader} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <div>
-                <h2>Kelola Penyebab & Penularan (Laman 2)</h2>
-                <p>Tambah, edit, atau hapus kartu penyebab TB yang tampil di grid Laman 2.</p>
+                <h2>Kelola Kartu Artikel & Blog</h2>
+                <p>Tambah, edit, atau hapus kartu sub-artikel blog TB beserta isi materi detailnya.</p>
               </div>
               {!editingPenyebabId && (
                 <button onClick={handleStartAddPenyebab} className={styles.addBtn}>
-                  ➕ Tambah Penyebab Baru
+                  ➕ Tambah Artikel Baru
                 </button>
               )}
             </div>
@@ -776,32 +899,49 @@ export default function PetugasDashboardPage() {
               // Add / Edit form causa card
               <form onSubmit={handleSavePenyebab} className={styles.editorForm}>
                 <div className={styles.editorFormHeader}>
-                  <h3>{editingPenyebabId === "new" ? "Tambah Penyebab Baru" : "Edit Penyebab"}</h3>
+                  <h3>{editingPenyebabId === "new" ? "Tambah Artikel Baru" : "Edit Artikel"}</h3>
                   <button type="button" onClick={() => setEditingPenyebabId(null)} className={styles.cancelLinkBtn}>
                     ← Kembali ke Daftar
                   </button>
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Nama Penyebab / Judul Kartu</label>
+                  <label className={styles.label}>Kategori Artikel</label>
+                  <select
+                    value={editPenyebabKategoriId}
+                    onChange={(e) => setEditPenyebabKategoriId(e.target.value)}
+                    className={styles.input}
+                    required
+                  >
+                    <option value="" disabled>-- Pilih Kategori --</option>
+                    {kategoriList.map((cat) => (
+                      <option key={cat.id} value={cat.id}>
+                        {cat.title} ({cat.key})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Judul Artikel / Kartu</label>
                   <input
                     type="text"
                     value={editPenyebabTitle}
                     onChange={(e) => setEditPenyebabTitle(e.target.value)}
-                    placeholder="Contoh: Infeksi Bakteri Latent"
+                    placeholder="Contoh: Pentingnya Menjaga Pola Tidur"
                     className={styles.input}
                     required
                   />
                 </div>
 
                 <div className={styles.inputGroup}>
-                  <label className={styles.label}>Deskripsi Singkat</label>
+                  <label className={styles.label}>Deskripsi Singkat (Tampil di Card)</label>
                   <textarea
                     value={editPenyebabDesc}
                     onChange={(e) => setEditPenyebabDesc(e.target.value)}
-                    placeholder="Jelaskan secara ringkas mengenai penyebab ini..."
+                    placeholder="Jelaskan secara ringkas isi artikel ini..."
                     className={styles.textarea}
-                    rows={4}
+                    rows={3}
                     required
                   />
                 </div>
@@ -812,6 +952,18 @@ export default function PetugasDashboardPage() {
                     adminPassword={adminPassword}
                     onUploadSuccess={setEditPenyebabImg}
                     currentImageUrl={editPenyebabImg}
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Isi Lengkap Artikel Detail (HTML / Paragraf)</label>
+                  <textarea
+                    value={editPenyebabBody}
+                    onChange={(e) => setEditPenyebabBody(e.target.value)}
+                    placeholder="Tulis artikel medis lengkap di sini. Anda dapat menggunakan tag HTML seperti <p>, <h3>, <ul>, <li>..."
+                    className={styles.textarea}
+                    rows={12}
+                    required
                   />
                 </div>
 
@@ -831,7 +983,7 @@ export default function PetugasDashboardPage() {
                     className={styles.submitBtn}
                     disabled={penyebabSaveLoading}
                   >
-                    {penyebabSaveLoading ? "⏳ Menyimpan..." : "Simpan Penyebab"}
+                    {penyebabSaveLoading ? "⏳ Menyimpan..." : "Simpan Artikel"}
                   </button>
                 </div>
               </form>
@@ -852,6 +1004,9 @@ export default function PetugasDashboardPage() {
                       <div className={styles.rowInfo}>
                         <h4>{card.title}</h4>
                         <p className={styles.rowDesc}>{card.description}</p>
+                        <span className={styles.rowCategoryBadge}>
+                          📁 Kategori: {kategoriList.find(c => c.id === card.kategori_id)?.title || "Tidak Terkategori"}
+                        </span>
                       </div>
                     </div>
                     
@@ -864,6 +1019,137 @@ export default function PetugasDashboardPage() {
                       </button>
                       <button 
                         onClick={() => handleDeletePenyebab(card.id)} 
+                        className={styles.rowDeleteBtn}
+                      >
+                        🗑️ Hapus
+                      </button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* TAB 4: KATEGORI NAVIGASI */}
+        {activeTab === "kategori" && (
+          <div className={styles.tabContent}>
+            <div className={styles.tabHeader} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <div>
+                <h2>Kelola Kategori Navigasi (Sidebar)</h2>
+                <p>Tambah, edit, atau hapus kategori artikel utama yang tampil di menu navigasi sidebar.</p>
+              </div>
+              {!editingKategoriId && (
+                <button onClick={handleStartAddKategori} className={styles.addBtn}>
+                  ➕ Tambah Kategori Baru
+                </button>
+              )}
+            </div>
+
+            {kategoriLoading ? (
+              <div className={styles.loading}>Memuat data kategori...</div>
+            ) : editingKategoriId ? (
+              // Add / Edit form kategori
+              <form onSubmit={handleSaveKategori} className={styles.editorForm}>
+                <div className={styles.editorFormHeader}>
+                  <h3>{editingKategoriId === "new" ? "Tambah Kategori Baru" : "Edit Kategori"}</h3>
+                  <button type="button" onClick={() => setEditingKategoriId(null)} className={styles.cancelLinkBtn}>
+                    ← Kembali ke Daftar
+                  </button>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Judul Kategori (Tampil di Sidebar)</label>
+                  <input
+                    type="text"
+                    value={editKategoriTitle}
+                    onChange={(e) => setEditKategoriTitle(e.target.value)}
+                    placeholder="Contoh: Nutrisi & Gizi TB"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Sub-Judul (Tampil di Header Halaman)</label>
+                  <input
+                    type="text"
+                    value={editKategoriSubtitle}
+                    onChange={(e) => setEditKategoriSubtitle(e.target.value)}
+                    placeholder="Contoh: Diet Sehat & Gizi Seimbang"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Deskripsi Pengantar Kategori</label>
+                  <textarea
+                    value={editKategoriDesc}
+                    onChange={(e) => setEditKategoriDesc(e.target.value)}
+                    placeholder="Jelaskan secara ringkas mengenai gizi seimbang bagi penderita TB..."
+                    className={styles.textarea}
+                    rows={4}
+                    required
+                  />
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>Urutan Tampil (Display Order)</label>
+                  <input
+                    type="number"
+                    value={editKategoriOrder}
+                    onChange={(e) => setEditKategoriOrder(e.target.value)}
+                    placeholder="1"
+                    min="1"
+                    className={styles.input}
+                    required
+                  />
+                </div>
+
+                {kategoriSaveError && <div className={styles.errorContainer}>⚠️ {kategoriSaveError}</div>}
+
+                <div className={styles.formActions}>
+                  <button 
+                    type="button" 
+                    onClick={() => setEditingKategoriId(null)} 
+                    className={styles.cancelBtn}
+                    disabled={kategoriSaveLoading}
+                  >
+                    Batal
+                  </button>
+                  <button 
+                    type="submit" 
+                    className={styles.submitBtn}
+                    disabled={kategoriSaveLoading}
+                  >
+                    {kategoriSaveLoading ? "⏳ Menyimpan..." : "Simpan Kategori"}
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className={styles.causesList}>
+                {kategoriList.map((cat) => (
+                  <div key={cat.id} className={styles.causeRow}>
+                    <div className={styles.rowInfo}>
+                      <h4>{cat.title}</h4>
+                      <p className={styles.rowDesc} style={{ fontSize: "0.85rem" }}>
+                        <strong>Sub-judul:</strong> {cat.subtitle} | <strong>Order:</strong> {cat.display_order}
+                      </p>
+                      <p className={styles.rowDesc} style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                        {cat.description}
+                      </p>
+                    </div>
+                    
+                    <div style={{ display: "flex", gap: "0.5rem" }}>
+                      <button 
+                        onClick={() => handleStartEditKategori(cat)} 
+                        className={styles.rowEditBtn}
+                      >
+                        ✏️ Edit
+                      </button>
+                      <button 
+                        onClick={() => handleDeleteKategori(cat.id)} 
                         className={styles.rowDeleteBtn}
                       >
                         🗑️ Hapus

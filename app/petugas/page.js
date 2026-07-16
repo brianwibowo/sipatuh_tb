@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 export default function PetugasInfoPage() {
   const [contents, setContents] = useState([]);
   const [articles, setArticles] = useState([]);
-  const [penyebabCards, setPenyebabCards] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const fetchContents = async () => {
@@ -45,158 +45,23 @@ export default function PetugasInfoPage() {
     }
   };
 
-  const fetchPenyebabCards = async () => {
+  const fetchCategories = async () => {
     try {
-      const res = await fetch("/api/penyebab");
+      const res = await fetch("/api/kategori");
       const data = await res.json();
-      if (res.ok && data.penyebab) {
-        setPenyebabCards(data.penyebab);
+      if (res.ok && data.kategori) {
+        setCategories(data.kategori);
       }
     } catch (err) {
-      console.error("Gagal memuat penyebab cards", err);
+      console.error("Gagal memuat kategori", err);
     }
   };
 
   useEffect(() => {
     fetchContents();
     fetchArticles();
-    fetchPenyebabCards();
+    fetchCategories();
   }, []);
-
-  const getLocalFallbackImage = (slug) => {
-    if (slug.includes("pencegahan")) {
-      return "/images/caring_nurse_comforting_patient_1784200678670.png";
-    }
-    if (slug.includes("pmo") || slug.includes("dukungan")) {
-      return "/images/medical_shaking_hands_1784200384280.png";
-    }
-    if (slug.includes("gejala")) {
-      return "/images/lungs_illustration_1784100215238.png";
-    }
-    if (slug.includes("bakteri")) {
-      return "/images/bacteria-illustration.png";
-    }
-    if (slug.includes("droplet") || slug.includes("penularan")) {
-      return "/images/droplet-illustration.png";
-    }
-    if (slug.includes("imun") || slug.includes("kekebalan")) {
-      return "/images/lungs-illustration.png";
-    }
-    return "/images/lungs-illustration.png";
-  };
-
-  const getCardDetails = (slug) => {
-    if (slug.includes("pencegahan")) {
-      return {
-        type: "Pencegahan",
-        risk: "Imunisasi & APD",
-        riskClass: styles.badgePrimary,
-        target: "Komunitas & Keluarga",
-        transmission: "Vaksinasi & Kontrol Udara"
-      };
-    }
-    if (slug.includes("pmo") || slug.includes("dukungan")) {
-      return {
-        type: "Dukungan",
-        risk: "Kepatuhan OAT",
-        riskClass: styles.badgePrimary,
-        target: "Kedisiplinan Terapi SO/MDR",
-        transmission: "Keluarga & Petugas Siaga"
-      };
-    }
-    if (slug.includes("gejala")) {
-      return {
-        type: "Diagnosis",
-        risk: "Deteksi Dini",
-        riskClass: styles.badgePrimary,
-        target: "Fasilitas Kesehatan & Komunitas",
-        transmission: "TCM GeneXpert & BTA"
-      };
-    }
-    if (slug.includes("bakteri")) {
-      return {
-        type: "Biologis",
-        risk: "Sangat Tinggi",
-        riskClass: styles.badgeDanger,
-        target: "Paru-paru & Ekstra-paru",
-        transmission: "Inhalasi Nuklei Droplet"
-      };
-    }
-    if (slug.includes("droplet") || slug.includes("penularan")) {
-      return {
-        type: "Transmisi",
-        risk: "Sangat Cepat",
-        riskClass: styles.badgeDanger,
-        target: "Kontak Udara Terbuka",
-        transmission: "Bersin, Batuk, Berbicara"
-      };
-    }
-    if (slug.includes("imun") || slug.includes("kekebalan")) {
-      return {
-        type: "Fisiologis",
-        risk: "Tinggi",
-        riskClass: styles.badgeWarning,
-        target: "Rentan Reaktivasi",
-        transmission: "Kondisi Komorbid (HIV, DM)"
-      };
-    }
-    if (slug.includes("lingkungan") || slug.includes("padat")) {
-      return {
-        type: "Lingkungan",
-        risk: "Tinggi",
-        riskClass: styles.badgeWarning,
-        target: "Kluster Rumah Tangga",
-        transmission: "Sirkulasi & Sinar UV Buruk"
-      };
-    }
-    if (slug.includes("kontak") || slug.includes("erat")) {
-      return {
-        type: "Sosial",
-        risk: "Sangat Tinggi",
-        riskClass: styles.badgeDanger,
-        target: "Keluarga & Rekan Kerja",
-        transmission: "Interaksi Intens Harian"
-      };
-    }
-    if (slug.includes("rokok") || slug.includes("merokok")) {
-      return {
-        type: "Perilaku",
-        risk: "Sedang-Tinggi",
-        riskClass: styles.badgeWarning,
-        target: "Kerusakan Silia Paru",
-        transmission: "Paparan Asap Kronis"
-      };
-    }
-    return {
-      type: "Faktor Risiko",
-      risk: "Bervariasi",
-      riskClass: styles.badgeWarning,
-      target: "Sistemik",
-      transmission: "Multi-faktor"
-    };
-  };
-
-  const getCardsForSection = (sectionKey) => {
-    switch (sectionKey) {
-      case "penjelasan_umum":
-        return penyebabCards.filter(c => c.slug.includes("bakteri") || c.slug.includes("imun"));
-      case "gejala":
-        return penyebabCards.filter(c => c.slug.includes("gejala"));
-      case "pengobatan":
-        return penyebabCards.filter(c => c.slug.includes("pmo") || c.slug.includes("obat"));
-      case "pencegahan":
-        return penyebabCards.filter(c => 
-          c.slug.includes("droplet") || 
-          c.slug.includes("penularan") || 
-          c.slug.includes("lingkungan") || 
-          c.slug.includes("kontak") || 
-          c.slug.includes("rokok") || 
-          c.slug.includes("pencegahan")
-        );
-      default:
-        return [];
-    }
-  };
 
   const renderCardContent = (content) => {
     try {
@@ -276,22 +141,39 @@ export default function PetugasInfoPage() {
                   <div className="shimmer" style={{ height: "200px", borderRadius: "16px" }}></div>
                 </div>
               ) : (
-                contents.map((content, idx) => (
-                  <article 
-                    key={content.id} 
-                    className={styles.articleCard} 
-                    id={content.section_key}
-                  >
-                    <div className={styles.cardContent}>
-                      <h2 className={styles.articleTitle}>
-                        <span className={styles.titleIndex}>0{idx + 1}.</span> {content.title}
-                      </h2>
-                      {renderCardContent(content)}
-                      
+                categories.map((cat, idx) => {
+                  const matchingContent = contents.find(c => c.section_key === cat.key);
+                  return (
+                    <article 
+                      key={cat.id} 
+                      className={styles.articleCard} 
+                      id={cat.key}
+                    >
+                      <div className={styles.cardContent}>
+                        <h2 className={styles.articleTitle}>
+                          <span className={styles.titleIndex}>0{idx + 1}.</span> {cat.title}
+                        </h2>
+                        {matchingContent ? (
+                          renderCardContent(matchingContent)
+                        ) : (
+                          <div className={styles.articleBody}>
+                            <p className={styles.leadText}>{cat.description}</p>
+                          </div>
+                        )}
 
-                    </div>
-                  </article>
-                ))
+                        <div className={styles.viewArticlesRow}>
+                          <Link href={`/petugas/kategori/${cat.key}`} className={styles.viewCategoryLink}>
+                            <span>Buka Kumpulan Artikel {cat.title}</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className={styles.arrowIcon}>
+                              <line x1="5" y1="12" x2="19" y2="12"></line>
+                              <polyline points="12 5 19 12 12 19"></polyline>
+                            </svg>
+                          </Link>
+                        </div>
+                      </div>
+                    </article>
+                  );
+                })
               )}
             </div>
 
@@ -301,18 +183,11 @@ export default function PetugasInfoPage() {
                 <div className={styles.sidebarCard}>
                   <h3 className={styles.sidebarTitle}>Navigasi Artikel</h3>
                   <div className={styles.sidebarNav}>
-                    <Link href="/petugas/kategori/penjelasan_umum" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Apa itu TB?
-                    </Link>
-                    <Link href="/petugas/kategori/gejala" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Gejala TB
-                    </Link>
-                    <Link href="/petugas/kategori/pengobatan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Skema Pengobatan
-                    </Link>
-                    <Link href="/petugas/kategori/pencegahan" className={styles.navLink}>
-                      <span className={styles.navIcon}>•</span> Pencegahan Penularan
-                    </Link>
+                    {categories.map(cat => (
+                      <Link key={cat.id} href={`/petugas/kategori/${cat.key}`} className={styles.navLink}>
+                        <span className={styles.navIcon}>•</span> {cat.title}
+                      </Link>
+                    ))}
                   </div>
                 </div>
               </div>

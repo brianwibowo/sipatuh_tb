@@ -118,9 +118,10 @@
 }
 
 .title {
+  font-family: var(--font-serif);
   font-size: clamp(1.8rem, 4vw, 2.5rem);
   color: var(--primary-dark);
-  line-height: 1.2;
+  line-height: 1.25;
 }
 
 .body {
@@ -134,7 +135,8 @@
 }
 
 .body h3 {
-  font-size: 1.4rem;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
   color: var(--primary);
   margin: var(--space-xl) 0 var(--space-sm);
 }

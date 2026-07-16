@@ -154,7 +154,12 @@ export default function PetugasPenyebabPage() {
                 const details = getCardDetails(card.slug);
 
                 return (
-                  <div key={card.id} className={styles.card}>
+                  <div 
+                    key={card.id} 
+                    className={`${styles.card} ${
+                      index === 0 ? styles.cardLarge : index === 1 || index === 2 ? styles.cardMedium : styles.cardSmall
+                    }`}
+                  >
                     <div className={styles.cardImageContainer}>
                       <Image
                         src={card.image_url || getLocalFallbackImage(card.slug)}

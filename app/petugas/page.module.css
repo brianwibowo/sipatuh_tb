@@ -89,6 +89,8 @@
 }
 
 .mainTitle {
+  font-family: var(--font-serif);
+  font-size: 3rem;
   margin-bottom: var(--space-sm);
   color: var(--primary-dark);
 }
@@ -181,7 +183,8 @@
 }
 
 .articleTitle {
-  font-size: 1.75rem;
+  font-family: var(--font-serif);
+  font-size: 1.85rem;
   color: var(--primary-dark);
   margin-bottom: var(--space-md);
   border-bottom: 2.5px solid var(--border-light);
@@ -210,8 +213,10 @@
 }
 
 .sidebarCard {
-  background-color: var(--bg-surface);
-  border-radius: var(--radius-md);
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: var(--radius-lg);
   padding: var(--space-lg);
   box-shadow: var(--shadow-sm);
   border: 1px solid var(--border-light);

@@ -6,20 +6,20 @@
 :root {
   /* HSL Tailored Palettes */
   --primary-h: 165;
-  --primary-s: 76%;
-  --primary-l: 22%; /* #0D5D49 */
+  --primary-s: 71%;
+  --primary-l: 14%; /* #0A3B2E - Deep Forest Green */
   
   --primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
-  --primary-light: hsl(var(--primary-h), var(--primary-s), 30%);
-  --primary-dark: hsl(var(--primary-h), var(--primary-s), 15%);
+  --primary-light: hsl(var(--primary-h), var(--primary-s), 22%);
+  --primary-dark: hsl(var(--primary-h), var(--primary-s), 8%);
   --primary-glow: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.15);
 
-  --secondary-h: 210;
-  --secondary-s: 74%;
-  --secondary-l: 32%; /* #144F8A */
+  --secondary-h: 14;
+  --secondary-s: 69%;
+  --secondary-l: 62%; /* #E07A5F - Warm Terracotta Coral */
   
   --secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
-  --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 42%);
+  --secondary-light: hsl(var(--secondary-h), var(--secondary-s), 68%);
   --secondary-glow: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.15);
 
   --neutral-h: 48;
@@ -39,16 +39,17 @@
   --danger-glow: hsla(var(--danger-h), var(--danger-s), var(--danger-l), 0.1);
 
   /* Warm Medical Backgrounds (Anti-Sterile) */
-  --bg-base: #F7F5F0;        /* Deeper warm cream background for higher card contrast */
+  --bg-base: #FDFBF7;        /* Soft sand/ivory background */
   --bg-surface: #FFFFFF;     /* Pure white cards */
-  --bg-muted: #EFEBE4;       /* Slightly darker warm grey */
-  --bg-muted-light: #F6F4F0;
-  --bg-dark: #1A1F1D;
-  --border-light: rgba(13, 93, 73, 0.08);
+  --bg-muted: #ECEAE4;       /* Slightly darker warm grey */
+  --bg-muted-light: #F8F6F1;
+  --bg-dark: #0D1614;        /* Deep forest charcoal */
+  --border-light: rgba(10, 59, 46, 0.08);
   --border-medium: rgba(95, 94, 90, 0.2);
 
   /* Font Configurations */
-  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-serif: var(--font-lora), Georgia, serif;
+  --font-sans: var(--font-poppins), system-ui, -apple-system, sans-serif;
 
   /* Spacing Scale */
   --space-xs: 0.25rem;

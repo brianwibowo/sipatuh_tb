@@ -21,6 +21,10 @@ export default function Navbar() {
     return pathname.startsWith(path);
   };
 
+  if (pathname === "/") {
+    return null;
+  }
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>

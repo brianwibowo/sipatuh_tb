@@ -21,7 +21,7 @@ export default function Navbar() {
     return pathname.startsWith(path);
   };
 
-  if (pathname === "/") {
+  if (pathname === "/" || pathname === "/petugas/dashboard") {
     return null;
   }
 

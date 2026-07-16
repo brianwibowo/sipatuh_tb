@@ -2,14 +2,20 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
+  const pathname = usePathname();
   const currentYear = new Date().getFullYear();
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  if (pathname === "/petugas/dashboard") {
+    return null;
+  }
 
   return (
     <footer className={styles.footer}>

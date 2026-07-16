@@ -29,13 +29,16 @@ export default function Navbar() {
     <header className={styles.header}>
       <div className={styles.container}>
         <Link href="/" className={styles.logoContainer}>
-          <Image
-            src="/images/logo.png"
-            alt="SIPATUH-TB Logo"
-            width={32}
-            height={32}
-            className={styles.logoImage}
-          />
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+            {/* Cross at the top */}
+            <path d="M12 2V8M9 5H15" stroke="var(--secondary)" strokeWidth="2.5" strokeLinecap="round" />
+            {/* Left Lung */}
+            <path d="M10.5 9.5C8.5 7.5 5 9 5 12.5C5 16 8 18 10.5 17" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Right Lung */}
+            <path d="M13.5 9.5C15.5 7.5 19 9 19 12.5C19 16 16 18 13.5 17" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Central Leaf */}
+            <path d="M12 9C10.5 12 11 16 12 18.5C13 16 13.5 12 12 9Z" fill="#34A853" stroke="#137333" strokeWidth="1" strokeLinejoin="round" />
+          </svg>
           <span className={styles.logoText}>
             SIPATUH<span className={styles.logoHighlight}>-TB</span>
           </span>

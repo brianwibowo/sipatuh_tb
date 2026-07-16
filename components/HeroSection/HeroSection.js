@@ -21,13 +21,16 @@ export default function HeroSection() {
 
         {/* Center Logo */}
         <Link href="/" className={styles.logo}>
-          <Image
-            src="/images/logo.png"
-            alt="SIPATUH-TB Logo"
-            width={34}
-            height={34}
-            className={styles.logoIcon}
-          />
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className={styles.logoIcon}>
+            {/* Cross at the top */}
+            <path d="M12 2V8M9 5H15" stroke="var(--secondary)" strokeWidth="2.5" strokeLinecap="round" />
+            {/* Left Lung */}
+            <path d="M10.5 9.5C8.5 7.5 5 9 5 12.5C5 16 8 18 10.5 17" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Right Lung */}
+            <path d="M13.5 9.5C15.5 7.5 19 9 19 12.5C19 16 16 18 13.5 17" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+            {/* Central Leaf */}
+            <path d="M12 9C10.5 12 11 16 12 18.5C13 16 13.5 12 12 9Z" fill="#34A853" stroke="#137333" strokeWidth="1" strokeLinejoin="round" />
+          </svg>
           <div className={styles.logoText}>
             <span className={styles.logoTitle}>SIPATUH</span>
             <span className={styles.logoSubtitle}>-TB Edukasi</span>
